@@ -6,14 +6,14 @@ pwdlen=`expr $pwdlen + 1`
 
 if [ $1 ]; then
         if [ $1 = "all" ]; then
-                echo "Killing all scripts"
+                echo "Stopping all scripts"
                 for item in $commands; do
                         itemname=${item:pwdlen}
                         itemname=${itemname%.py}
                         pid=`ps -ef | grep $item | grep -v grep | awk -v col=2 '{print $col}'`
                         if [ $pid ]; then
-                                echo "Killing bot command !$itemname"
-				echo "Killing $itemname.py at $(date)" >> $PWD/$itemname.log
+                                echo "Stopping bot command !$itemname"
+				echo "Stopping $itemname.py at $(date)" >> $PWD/$itemname.log
 				kill $pid
                         else
                                 echo "!$itemname is not running in $PWD"
@@ -30,8 +30,8 @@ if [ $1 ]; then
                         pid=`ps -ef | grep $PWD/$1.py | grep -v grep | awk -v col=2 '{print $col}'`
                         if [ $pid ]
                         then
-                                echo "Killing bot command !$1"
-				echo "Killing $1.py at $(date)" >> $PWD/$1.log
+                                echo "Stopping bot command !$1"
+				echo "Stopping $1.py at $(date)" >> $PWD/$1.log
 				kill $pid
                         else
                                 echo "!$1 is not running in $PWD"
@@ -41,6 +41,6 @@ if [ $1 ]; then
                 fi
         fi
 else
-        echo "Must specify either 'all' or a command to kill"
+        echo "Must specify either 'all' or a command to stop"
 fi
 

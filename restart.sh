@@ -43,6 +43,6 @@ if [ $1 ]; then
                 fi
         fi
 else
-        echo "Must specify either 'all' or a command to start"
+        echo "Must specify either 'all' or a command to restart"
 fi
 
