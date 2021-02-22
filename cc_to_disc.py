@@ -14,7 +14,7 @@ async def on_ready():
 	file_to_watch = os.getenv('cclog')
 	oldline = " "
 	while 1:
-		time.sleep (0.1)
+		time.sleep (0.2)
 		with open(file_to_watch, 'r') as f:
 			lines = f.read().splitlines()
 			last_line = lines[-1]
@@ -24,7 +24,6 @@ async def on_ready():
 		last_line = last_line.replace("<img=4>", "<:HCIM:813418921726050314>")
 	
 		if last_line != oldline:
-			print(last_line)
 			await channel.send(last_line)
 		
 		oldline = last_line
