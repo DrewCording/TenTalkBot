@@ -27,7 +27,7 @@ async def on_message(message):
 
             if mention2:
                 namestr2 = str("<lt>@!" + mention2.group(1) + "<gt>")
-                await message.channel.send(orig.replace(namestr, str('<@' + str(member.id) + '>')))
+                await message.channel.send(orig.replace(namestr2, str('<@' + str(mention2.group(1)) + '>')))
                 await message.delete()
                 return
 
