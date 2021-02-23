@@ -26,9 +26,8 @@ async def on_message(message):
 				
                 await message.delete()
                 intv = "0.0" + str(random.randrange(50, 99, 1))
-                pyautogui.hotkey('enter')
+                pyautogui.write('/')
                 pyautogui.write(text, interval = intv)
                 pyautogui.hotkey('enter')
 				
 client.run(os.getenv('TOKEN'))
-
