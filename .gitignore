@@ -130,3 +130,6 @@ dmypy.json
 
 # Google Sheets API Token
 client_secret.json
+
+# Temp output of !stats
+stats_edit.png
