@@ -16,6 +16,8 @@ CC Clone
 		NOTE: Autoclickers are bannable. Use at your own risk
 	Note that there is no support to relog after the weekly update. You must manually restart Runelite
 	mention.py - Turns @user@ into a proper Discord mention
+	logger.py - Logs all messages sent to the CC Clone bot with Discord ID
+		Prevents people impersonating others to get them banned
 
 Discord commands
 	!hello - Hello! Use this to confirm the bot is connected to the server
