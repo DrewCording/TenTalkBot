@@ -6,18 +6,17 @@ pwdlen=`expr $pwdlen + 1`
 
 if [ $1 ]; then
         if [ $1 = "all" ]; then
-                echo "Restarting all scripts"
+                echo "Stopping all scripts"
                 for item in $commands; do
                         itemname=${item:pwdlen}
                         itemname=${itemname%.py}
                         pid=`ps -ef | grep $item | grep -v grep | awk -v col=2 '{print $col}'`
                         if [ $pid ]; then
-                                echo "Restarting Bot Command !$itemname"
-                                echo "Restarting $itemname.py at $(date)" >> $PWD/$itemname.log
+                                echo "Stopping bot command !$itemname"
+				echo "Stopping $itemname.py at $(date)" >> $PWD/$itemname.log
 				kill $pid
-                                $item &>> $PWD/$itemname.log &
                         else
-                                echo "!$itemname is not running in $PWD. Use start.sh"
+                                echo "!$itemname is not running in $PWD"
                         fi
                 done
         else
@@ -31,18 +30,17 @@ if [ $1 ]; then
                         pid=`ps -ef | grep $PWD/$1.py | grep -v grep | awk -v col=2 '{print $col}'`
                         if [ $pid ]
                         then
-                                echo "Restarting bot command !$1"
-                                echo "Restarting $1.py at $(date)" >> $PWD/$1.log
+                                echo "Stopping bot command !$1"
+				echo "Stopping $1.py at $(date)" >> $PWD/$1.log
 				kill $pid
-                                $PWD/$1.py &>> $PWD/$1.log &
                         else
-                                echo "!$1 is not running in $PWD. Use start.sh"
+                                echo "!$1 is not running in $PWD"
                         fi
                 else
                         echo "Command !$1 does not exist in $PWD"
                 fi
         fi
 else
-        echo "Must specify either 'all' or a command to restart"
+        echo "Must specify either 'all' or a command to stop"
 fi
 
