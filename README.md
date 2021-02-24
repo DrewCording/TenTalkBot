@@ -9,26 +9,37 @@ Control scripts
 	stop.sh - Stops bots individually or all at once
 	restart.sh - Restarts bots individually or all at once
 
-CC Clone
+CCBot
 
 	cc_to_disc.py - Reads cc messages from latest.log and sends them to Discord on specified channel
+		Supports @discord name@ pings
+		Supports #discord channel# pings
 	disc_to_cc.py - Reads discord messages from specified channel and sends them to CC
 		NOTE: Autotypers are bannable. Use at your own risk
+		Supports @discord-user conversion to name in cc
+		Supports #discord-channel conversion to name in cc
+		Supports :emote: conversion to name in cc
 	keep_alive.py - Prevents bot from being logged out and auto re-logs after 6 hour log
 		NOTE: Autoclickers are bannable. Use at your own risk
 	Note that there is no support to relog after the weekly update. You must manually restart Runelite
 	mention.py - Turns @user@ into a proper Discord mention
-	logger.py - Logs all messages sent to the CC Clone bot with Discord ID
-		Prevents people impersonating others to get them banned
+	ccbot_logger.py - Logs all messages sent to the CC Clone bot with Discord ID
+		Prevents people impersonating others nefariously
+	ccbot_commands.py - Allows !commands to be used in CC
+	ccbot_commands.cfg - Allows controlling which commands will work in CC
 
 Discord commands
 
 	!hello - Hello! Use this to confirm the bot is connected to the server
+		Supports CCBot use
 	!stats <rsn> - Shows stats for a specified RSN. Use quotes if RSN contains spaces "Eg RSN"
 	!move <#Channel> <message ids> - Moves the specified message IDs to the #Channel specified
+		Requires manage_messages permissions
 	!giverank <@User> <RSN> - In development
 	!rankdown.py <@User> - In development
 	!rankup.py <@User> - In development
+	!sotw - shows a predefined message in sotw.msg
+		Supports CCBot use
 
 ===== Setup Instructions =====
 
