@@ -15,11 +15,13 @@ async def on_ready():
 @client.event
 async def on_message(message):
     content = message.content
-    if content.startswith("!sotw"):
-
-        sotw_file = open("sotw.msg", "r")
-        sotw_msg = sotw_file.read()
-        sotw_file.close()
+    if content.lower() == "!sotw":
+        try: 
+            sotw_file = open("sotw.msg", "r")
+            sotw_msg = sotw_file.read()
+            sotw_file.close()
+        except: 
+            sotw_msg = "No sotw message is set"
 
         if message.author == client.user:
             if message.channel.id == int(os.getenv('botchan')):
