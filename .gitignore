@@ -134,3 +134,5 @@ client_secret.json
 # Temp output files
 stats_edit.png
 sotw.msg
+sotw_cc.msg
+sotw_disc.msg

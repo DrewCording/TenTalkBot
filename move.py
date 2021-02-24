@@ -16,7 +16,7 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def move(ctx, channel: discord.TextChannel, *message_ids: int):
-    if message.channel.id == int(os.getenv('channel')):
+    if ctx.channel.id == int(os.getenv('channel')):
         return
 
     for message_id in message_ids:

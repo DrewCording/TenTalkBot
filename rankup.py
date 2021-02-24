@@ -15,7 +15,7 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(manage_roles=True)
 async def rankup(ctx, user: discord.Member):
-    if message.channel.id == int(os.getenv('channel')):
+    if ctx.channel.id == int(os.getenv('channel')):
         return
 
     flag = 0
