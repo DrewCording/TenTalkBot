@@ -15,6 +15,9 @@ async def on_ready():
 
 @client.command()
 async def stats(ctx, rsn):
+    if message.channel.id == int(os.getenv('channel')):
+        return
+
     rsn_nospace = rsn.replace(" ","%20")
     print(ctx.message.author, "requested stats for RSN", rsn)
     await ctx.send("Looking up stats for RSN " + str(rsn))

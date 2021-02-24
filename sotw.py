@@ -14,6 +14,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    if message.channel.id == int(os.getenv('channel')):
+        return
+
     content = message.content
     if content.lower() == "!sotw":
         try: 
