@@ -15,7 +15,7 @@ async def on_ready():
 
 @client.command()
 async def stats(ctx, rsn):
-    if message.channel.id == int(os.getenv('channel')):
+    if ctx.channel.id == int(os.getenv('channel')):
         return
 
     rsn_nospace = rsn.replace(" ","%20")

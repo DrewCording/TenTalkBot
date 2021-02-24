@@ -19,18 +19,24 @@ async def on_message(message):
 
     content = message.content
     if content.lower() == "!sotw":
-        try: 
-            sotw_file = open("sotw.msg", "r")
-            sotw_msg = sotw_file.read()
-            sotw_file.close()
-        except: 
-            sotw_msg = "No sotw message is set"
-
         if message.author == client.user:
             if message.channel.id == int(os.getenv('botchan')):
+                try: 
+                    sotw_file = open("sotw_cc.msg", "r")
+                    sotw_msg = sotw_file.read()
+                    sotw_file.close()
+                except: 
+                    sotw_msg = "No sotw message is set"
+
                 cc_chan = client.get_channel(int(os.getenv('channel')))
                 await cc_chan.send(str('*' + sotw_msg))
         else:
+            try: 
+                sotw_file = open("sotw_disc.msg", "r")
+                sotw_msg = sotw_file.read()
+                sotw_file.close()
+            except: 
+                sotw_msg = "No sotw message is set"
 
             await message.channel.send(str(sotw_msg))
     else:
