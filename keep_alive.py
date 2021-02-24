@@ -25,5 +25,7 @@ while 1:
 		time.sleep(intv1)
 		intv2 = random.randrange(60, 120, 1)
 		time.sleep(intv2)
+		pyautogui.moveTo(random.randrange(1100, 1130, 1), random.randrange(1005, 1055, 1), 2, pyautogui.easeOutQuad)
+		pyautogui.click()
 		pyautogui.moveTo(1110, 1030, 2, pyautogui.easeOutQuad)
 		pyautogui.click()
