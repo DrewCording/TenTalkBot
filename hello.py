@@ -12,8 +12,16 @@ async def on_ready():
     print('!hello started on bot {0.user}'.format(client))
 
 
-@client.command()
-async def hello(ctx):
-    await ctx.send('Hello!')
-
+@client.event
+async def on_message(message):
+    content = message.content
+    if content.startswith("!hello"):
+        if message.author == client.user:
+            if message.channel.id == int(os.getenv('botchan')):
+                cc_chan = client.get_channel(int(os.getenv('channel')))
+                await cc_chan.send('*Hello!')
+        else:
+            await message.channel.send('Hello!')
+    else:
+        return
 client.run(os.getenv('TOKEN'))
