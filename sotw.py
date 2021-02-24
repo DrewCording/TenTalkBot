@@ -19,6 +19,7 @@ async def on_message(message):
 
         sotw_file = open("sotw.msg", "r")
         sotw_msg = sotw_file.read()
+        sotw_file.close()
 
         if message.author == client.user:
             if message.channel.id == int(os.getenv('botchan')):
