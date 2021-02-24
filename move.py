@@ -27,6 +27,7 @@ async def move(ctx, channel: discord.TextChannel, *message_ids: int):
                 print(ctx.author, "moved a message from", message.channel.name, "to", channel.name)
                 print(message.author.name, "-", message.content)
                 await message.delete()
+                await ctx.message.delete()
 
 @move.error
 async def move_error(ctx, error):
