@@ -16,6 +16,9 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def sotw_set(ctx, sotw):
+    if message.channel.id == int(os.getenv('channel')):
+        return
+    
     if len(sotw) > 79:
         await ctx.send("Message too long. Character limit is 79 due to in-game use")
     else:

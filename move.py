@@ -16,18 +16,21 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def move(ctx, channel: discord.TextChannel, *message_ids: int):
-        for message_id in message_ids:
-            message = await ctx.channel.fetch_message(message_id)
+    if message.channel.id == int(os.getenv('channel')):
+        return
 
-            if not message:
-                ctx.send("That message id does not exist")
-            else:
-                await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content)
-                print(datetime.now())
-                print(ctx.author, "moved a message from", message.channel.name, "to", channel.name)
-                print(message.author.name, "-", message.content)
-                await message.delete()
-                await ctx.message.delete()
+    for message_id in message_ids:
+        message = await ctx.channel.fetch_message(message_id)
+
+        if not message:
+            ctx.send("That message id does not exist")
+        else:
+            await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content)
+            print(datetime.now())
+            print(ctx.author, "moved a message from", message.channel.name, "to", channel.name)
+            print(message.author.name, "-", message.content)
+            await message.delete()
+            await ctx.message.delete()
 
 @move.error
 async def move_error(ctx, error):
