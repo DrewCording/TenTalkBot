@@ -43,7 +43,7 @@ async def sotw_set(ctx, typ, sotw):
 
     else: 
         await ctx.send("SotW type not valid. Specify either 'cc' or 'discord'")
-'''
+
 @sotw_set.error
 async def move_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
@@ -52,6 +52,6 @@ async def move_error(ctx, error):
         await ctx.send("Must be able to manage messages to run this command. This has been reported")
         print(datetime.now())
         print(ctx.author, "attempted to use !sotw_set without permission")
-'''
+
 client.run(os.getenv('TOKEN'))
 
