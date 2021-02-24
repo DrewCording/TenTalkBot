@@ -1,8 +1,9 @@
-#!/bin/python3
+#!/bin/python3 -u
 import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
+from datetime import datetime
 
 load_dotenv()
 client = commands.Bot(command_prefix='!')
@@ -19,26 +20,21 @@ async def move(ctx, channel: discord.TextChannel, *message_ids: int):
             message = await ctx.channel.fetch_message(message_id)
 
             if not message:
-                return
-
-            if message.embeds:
-                embed = message.embeds[0]
-                embed.title = f'Embed by: {message.author}'
-
+                ctx.send("That message id does not exist")
             else:
-                embed = discord.Embed(
-                    title=f'Message by: {message.author}',
-                    description=message.content
-                )
-
-            await channel.send(embed=embed)
-            await message.delete()
+                await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content)
+                print(datetime.now())
+                print(ctx.author, "moved a message from", message.channel.name, "to", channel.name)
+                print(message.author.name, "-", message.content)
+                await message.delete()
 
 @move.error
 async def move_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
-        await ctx.send("Must provide #Channel and message id")
+        await ctx.send("Must provide #Channel and message ids")
     if isinstance(error, discord.ext.commands.errors.MissingPermissions):
-        await ctx.send("Must be able to manage messages to run this command")
+        await ctx.send("Must be able to manage messages to run this command. This has been reported")
+        print(datetime.now())
+        print(ctx.author, "attempted to use !move without permission")
 
 client.run(os.getenv('TOKEN'))

@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/python3 -u
 import discord
 import os
 from dotenv import load_dotenv
@@ -16,6 +16,7 @@ async def on_ready():
 @client.command()
 async def stats(ctx, rsn):
     rsn_nospace = rsn.replace(" ","%20")
+    print(ctx.message.author, "requested stats for RSN", rsn)
     await ctx.send("Looking up stats for RSN " + str(rsn))
     try: 
         main_stats = Hiscores(rsn_nospace, 'N')

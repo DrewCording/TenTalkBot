@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/python3 -u
 import discord
 import os
 from dotenv import load_dotenv
@@ -23,22 +23,29 @@ async def on_message(message):
             pattern2 = "<lt>@!(.*?)<gt>"
             mention = re.search(pattern, message.content)
             mention2 = re.search(pattern2, message.content)
+            orig = message.content
 
             if mention2:
-                await message.channel.send('<@' + str(mention2.group(1)) + '>')
+                namestr2 = str("<lt>@!" + mention2.group(1) + "<gt>")
+                await message.channel.send(orig.replace(namestr2, str('<@' + str(mention2.group(1)) + '>')))
+                await message.delete()
+                return
 
             if mention:
                 atuser = mention.group(1)
 
                 for member in message.guild.members:
+                    namestr = str("@" + mention.group(1) + "@")
                     if member.nick:
                         nick = member.nick
                         if nick.lower() == atuser.lower():
-                            await message.channel.send('<@' + str(member.id) + '>')
+                            await message.channel.send(orig.replace(namestr, str('<@' + str(member.id) + '>')))
+                            await message.delete()
                             break
                     memname = member.name
                     if memname.lower() == atuser.lower():
-                        await message.channel.send('<@' + str(member.id) + '>')
+                        await message.channel.send(orig.replace(namestr, str('<@' + str(member.id) + '>')))
+                        await message.delete()
                         break
     else:
         return
