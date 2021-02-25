@@ -17,7 +17,8 @@ async def on_ready():
 async def stats(ctx, rsn):
     if ctx.channel.id == int(os.getenv('channel')):
         return
-
+    
+    print(ctx.author, "requested stats for rsn", rsn)
     rsn_nospace = rsn.replace(" ","%20")
     print(ctx.message.author, "requested stats for RSN", rsn)
     await ctx.send("Looking up stats for RSN " + str(rsn))
