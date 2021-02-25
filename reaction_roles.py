@@ -31,6 +31,7 @@ async def reaction_roles():
     champrole = discord.utils.get(react_msg.guild.roles, name="Champ Cape")
 
     while 1:
+        time.sleep(300)
         for reaction in react_msg.reactions:
             async for user in reaction.users():
                 if str(reaction) == str(os.getenv('uim')):
@@ -72,8 +73,6 @@ async def reaction_roles():
                     if champrole not in user.roles:
                         print(user, "requested the role Champ Cape")
                         await user.add_roles(champrole)
-
-        time.sleep(300)
 
 client.loop.create_task(reaction_roles())
 client.run(os.getenv('TOKEN'))
