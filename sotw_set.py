@@ -26,6 +26,7 @@ async def sotw_set(ctx, typ, sotw):
         await ctx.send("SOTW Discord message set to:")
         sotw_file = open("sotw_disc.msg", "r")
         await ctx.send(str(sotw_file.read()))
+        print(ctx.author, "set Discord sotw message to", sotw)
         sotw_file.close()
 
     elif typ.lower() == "cc":
@@ -39,6 +40,7 @@ async def sotw_set(ctx, typ, sotw):
             await ctx.send("SOTW CC message set to:")
             sotw_file = open("sotw_cc.msg", "r")
             await ctx.send(str(sotw_file.read()))
+            print(ctx.author, "set CC sotw message to", sotw)
             sotw_file.close()
 
     else: 
