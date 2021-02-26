@@ -49,10 +49,10 @@ async def stats(ctx, rsn):
                     hci_stats = 0
 
                 if hci_stats:
-                    if hci_stats.skill('total', 'level') < iron_stats.skill('total', 'level'):
-                        await ctx.send(rsn + " is a " + os.getenv('ironman') + " (dead " + os.getenv('hcim') + ")")
-                    else:
+                    if hci_stats.skill('total', 'experience') == iron_stats.skill('total', 'experience'):
                         await ctx.send(rsn + " is a " + os.getenv('hcim'))
+                    else:
+                        await ctx.send(rsn + " is a " + os.getenv('ironman') + " (dead " + os.getenv('hcim') + ")")
                 else:
                     await ctx.send(rsn + " is a " + os.getenv('ironman'))
         else:
