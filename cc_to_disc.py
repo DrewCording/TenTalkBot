@@ -7,7 +7,7 @@ from discord.ext import commands
 import re
 
 load_dotenv()
-client = commands.Bot(command_prefix='!')
+client = commands.Bot(command_prefix='+123+')
 
 @client.event
 async def on_ready():
