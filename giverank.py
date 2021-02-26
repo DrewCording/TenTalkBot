@@ -20,19 +20,23 @@ async def on_ready():
 
 
 @client.command()
+@commands.has_permissions(manage_roles=True)
 async def giverank(ctx, user: discord.Member, rsn):
+    if ctx.channel.id == int(os.getenv('channel')):
+        return
+
     rsn_nospace = rsn.replace(" ","%20")
     await ctx.send('Giving Rank')
     sheet = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Summary")
-
+    
     i=0
     for membername in sheet.col_values(1):
         i=i+1
         if str(membername) == str(user):
             print("Found user ", membername, " on row ", i)
             sheet.update_cell(i, 12, "Should be banned")
-        
-
+            
+    
 '''
     await ctx.send("Looking up stats for RSN " + str(rsn))
     try:
@@ -46,7 +50,7 @@ async def giverank(ctx, user: discord.Member, rsn):
             iron_stats = Hiscores(rsn_nospace, 'IM')
         except:
             iron_stats = 0
-
+    
         if iron_stats:
             try:
                 uim_stats = Hiscores(rsn_nospace, 'UIM')
@@ -56,7 +60,7 @@ async def giverank(ctx, user: discord.Member, rsn):
             if uim_stats: 
                 await ctx.send(rsn + " is a UIM")
                 await ctx.send("Total level is " + uim_stats.skill('total', 'level'))
-            else:
+             else:
                 await ctx.send(rsn + " is an Ironman")
                 await ctx.send("Total level is " + iron_stats.skill('total', 'level'))
         else:

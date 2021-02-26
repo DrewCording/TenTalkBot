@@ -15,6 +15,9 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(manage_roles=True)
 async def rankup(ctx, user: discord.Member):
+    if ctx.channel.id == int(os.getenv('channel')):
+        return
+
     flag = 0
     testrole = discord.utils.find(lambda r: r.name == "Applicant", ctx.guild.roles)
     if testrole in user.roles:

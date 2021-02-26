@@ -64,3 +64,4 @@ async def cc_to_disc():
 
 client.loop.create_task(cc_to_disc())
 client.run(os.getenv('TOKEN'))
+

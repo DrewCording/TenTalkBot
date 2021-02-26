@@ -11,10 +11,13 @@ client = commands.Bot(command_prefix='!')
 
 @client.event
 async def on_ready():
-    print('!rankup started on bot {0.user}'.format(client))
+    print('!stats started on bot {0.user}'.format(client))
 
 @client.command()
 async def stats(ctx, rsn):
+    if ctx.channel.id == int(os.getenv('channel')):
+        return
+    
     rsn_nospace = rsn.replace(" ","%20")
     print(ctx.message.author, "requested stats for RSN", rsn)
     await ctx.send("Looking up stats for RSN " + str(rsn))
@@ -40,7 +43,18 @@ async def stats(ctx, rsn):
             if uim_stats:
                 await ctx.send(rsn + " is a " + os.getenv('uim'))
             else:
-                await ctx.send(rsn + " is a " + os.getenv('ironman'))
+                try:
+                    hci_stats = Hiscores(rsn_nospace, 'HIM')
+                except:
+                    hci_stats = 0
+
+                if hci_stats:
+                    if hci_stats.skill('total', 'experience') == iron_stats.skill('total', 'experience'):
+                        await ctx.send(rsn + " is a " + os.getenv('hcim'))
+                    else:
+                        await ctx.send(rsn + " is a " + os.getenv('ironman') + " (dead " + os.getenv('hcim') + ")")
+                else:
+                    await ctx.send(rsn + " is a " + os.getenv('ironman'))
         else:
             await ctx.send(rsn + " is a regular account")
 
