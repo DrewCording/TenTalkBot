@@ -20,12 +20,12 @@ metric_sheet = sheetclient.open_by_key(os.getenv('sheet')).worksheet("CC Stats")
 login_file = open("cc_logins.log", "r")
 logged_users = login_file.read()
 login_file.close()
-#os.rename("cc_logins.log", str("old_logs/cc_logins_" + str(date.today())  + ".log"))
+os.rename("cc_logins.log", str("old_logs/cc_logins_" + str(date.today())  + ".log"))
 
 mesg_file = open("cc_messages.log", "r")
 mesgd_users = mesg_file.read()
 mesg_file.close()
-#os.rename("cc_messages.log", str("old_logs/cc_messages_" + str(date.today())  + ".log"))
+os.rename("cc_messages.log", str("old_logs/cc_messages_" + str(date.today())  + ".log"))
 
 frst_ptrn = "\=(.*?)\+"
 
