@@ -31,7 +31,7 @@ async def reaction_roles():
     champrole = discord.utils.get(react_msg.guild.roles, name="Champ Cape")
 
     while 1:
-        time.sleep(300)
+        time.sleep(10)
         for reaction in react_msg.reactions:
             async for user in reaction.users():
                 if str(reaction) == str(os.getenv('uim')):
