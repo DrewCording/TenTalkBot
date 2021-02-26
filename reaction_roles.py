@@ -5,6 +5,7 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 import re
+import asyncio
 
 load_dotenv()
 intents = discord.Intents.all()
@@ -31,7 +32,7 @@ async def reaction_roles():
     champrole = discord.utils.get(react_msg.guild.roles, name="Champ Cape")
 
     while 1:
-        time.sleep(10)
+        await asyncio.sleep(30)
         for reaction in react_msg.reactions:
             async for user in reaction.users():
                 if str(reaction) == str(os.getenv('uim')):
