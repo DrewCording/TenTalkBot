@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from discord.utils import get
 import re
+import time
+import asyncio
 
 load_dotenv()
 intents = discord.Intents.all()
@@ -24,17 +26,25 @@ async def on_message(message):
                 return
             
             rsn_ptrn = "] (.*?): "
-            log_ptrn = "] (.*?) has joined"
+            login_ptrn = "] (.*?) has joined"
+            logot_ptrn = "] (.*?) has left"
             emt_ptrn = "<:(.*?)>"
     
             rsn = re.search(rsn_ptrn, content)
-            log = re.search(log_ptrn, content)
+            login = re.search(login_ptrn, content)
+            logot = re.search(logot_ptrn, content)
             emt = re.search(emt_ptrn, content)
     
-            if log:
+            if login:
                 cc_logins = open("cc_logins.log", "a")
-                cc_logins.write(str(str(log.group(1))+ "\n"))
+                cc_logins.write(str(str(login.group(1))+ "\n"))
                 cc_logins.close()
+                await asyncio.sleep(15)
+                await message.delete()
+
+            if logot:
+                await asyncio.sleep(15)
+                await message.delete()
 
             if rsn:
                 if emt:
