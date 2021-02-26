@@ -37,12 +37,27 @@ async def on_message(message):
     
             if login:
                 cc_logins = open("cc_logins.log", "a")
-                cc_logins.write(str(str(login.group(1))+ "\n"))
+                cc_logins.write(str(str(login.group(1)) + "\n"))
                 cc_logins.close()
+
+                cc_online = open("cc_online.log", "a")
+                cc_online.write(str(str(login.group(1)) + "\n"))
+                cc_online.close()
+
                 await asyncio.sleep(15)
                 await message.delete()
 
             if logot:
+                cc_online = open("cc_online.log", "r")
+                cc_online_content = cc_online.readlines()
+                cc_online.close()
+
+                cc_online = open("cc_online.log", "w")
+                for logout_rsn in cc_online_content:
+                    if logout_rsn.strip() != logot.group(1):
+                        cc_online.write(logout_rsn)
+                cc_online.close()
+
                 await asyncio.sleep(15)
                 await message.delete()
 
