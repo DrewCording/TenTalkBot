@@ -4,8 +4,11 @@ from dotenv import load_dotenv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import date
+from datetime import datetime
 import re
 import time
+
+print("Starting CC Metrics Upload at", datetime.now())
 
 load_dotenv()
 
@@ -17,18 +20,18 @@ metric_sheet = sheetclient.open_by_key(os.getenv('sheet')).worksheet("CC Stats")
 login_file = open("cc_logins.log", "r")
 logged_users = login_file.read()
 login_file.close()
-os.remove("cc_logins.log")
+#os.rename("cc_logins.log", str("old_logs/cc_logins_" + str(date.today())  + ".log"))
 
 mesg_file = open("cc_messages.log", "r")
 mesgd_users = mesg_file.read()
 mesg_file.close()
-os.remove("cc_messages.log")
+#os.rename("cc_messages.log", str("old_logs/cc_messages_" + str(date.today())  + ".log"))
 
 frst_ptrn = "\=(.*?)\+"
 
 while logged_users:
     user = logged_users.splitlines()[0]
-    user_count = logged_users.count(user)
+    user_count = int(logged_users.count(str("\n" + user + "\n")) + 1)
 
     i=1
     flag=0
@@ -73,14 +76,16 @@ while logged_users:
         metric_sheet.update_cell(i, 4, user_count)
         metric_sheet.update_cell(i, 5, str("=0+0+0+0+0+0+" + str(user_count)))
         metric_sheet.update_cell(i, 6, str("=0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+" + str(user_count)))
-
-    logged_users = logged_users.replace(str(user + "\n"), "")
-    time.sleep(15)
+    
+    while int(logged_users.count(str("\n" + user + "\n"))):
+        logged_users = logged_users.replace(str("\n" + user + "\n"), "\n")
+    logged_users = logged_users[int(len(user)+1):]
+    time.sleep(7)
 
 
 while mesgd_users:
     user = mesgd_users.splitlines()[0]
-    user_count = mesgd_users.count(user)
+    user_count = mesgd_users.count(str("\n" + user + "\n")) + 1
 
     i=1
     flag=0
@@ -126,5 +131,7 @@ while mesgd_users:
         metric_sheet.update_cell(i, 10, str("=0+0+0+0+0+0+" + str(user_count)))
         metric_sheet.update_cell(i, 11, str("=0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+0+" + str(user_count)))
 
-    mesgd_users = mesgd_users.replace(str(user + "\n"), "")
-    time.sleep(15)
+    while int(mesgd_users.count(str("\n" + user + "\n"))):
+        mesgd_users = mesgd_users.replace(str("\n" + user + "\n"), "\n")
+    mesgd_users = mesgd_users[int(len(user)+1):]
+    time.sleep(7)
