@@ -31,49 +31,53 @@ async def reaction_roles():
     maxrole = discord.utils.get(react_msg.guild.roles, name="Maxed")
     champrole = discord.utils.get(react_msg.guild.roles, name="Champ Cape")
 
-    while 1:
-        await asyncio.sleep(30)
-        for reaction in react_msg.reactions:
-            async for user in reaction.users():
-                if str(reaction) == str(os.getenv('uim')):
-                    if uimrole not in user.roles:
-                        print("Making", user, "a UIM")
-                        await user.add_roles(uimrole)
-
-                if str(reaction) == str(os.getenv('hcim')):
-                    if hcimrole not in user.roles:
-                        print(user, "requested the role HCIM")
-                        await user.add_roles(hcimrole)
-
-                if str(reaction) == str(os.getenv('ironman')):
-                    if ironrole not in user.roles:
-                        print(user, "requested the role Iron")
-                        await user.add_roles(ironrole)
-
-                if str(reaction) == str(os.getenv('hp10')):
-                    if hp10role not in user.roles:
-                        print(user, "requested the role 10HP")
-                        await user.add_roles(hp10role)
-
-                if str(reaction) == str(os.getenv('skiller')):
-                    if skillrole not in user.roles:
-                        print(user, "requested the role Skiller")
-                        await user.add_roles(skillrole)
-
-                if str(reaction) == str(os.getenv('f2p')):
-                    if f2prole not in user.roles:
-                        print(user, "requested the role F2P")
-                        await user.add_roles(f2prole)
-
-                if str(reaction) == str(os.getenv('maxed')):
-                    if maxrole not in user.roles:
-                        print(user, "requested the role Maxed")
-                        await user.add_roles(maxrole)
-
-                if str(reaction) == str(os.getenv('champ')):
-                    if champrole not in user.roles:
-                        print(user, "requested the role Champ Cape")
-                        await user.add_roles(champrole)
+    try:
+        while 1:
+            await asyncio.sleep(30)
+            for reaction in react_msg.reactions:
+                async for user in reaction.users():
+                    if str(reaction) == str(os.getenv('uim')):
+                        if uimrole not in user.roles:
+                            print("Making", user, "a UIM")
+                            await user.add_roles(uimrole)
+    
+                    if str(reaction) == str(os.getenv('hcim')):
+                        if hcimrole not in user.roles:
+                            print(user, "requested the role HCIM")
+                            await user.add_roles(hcimrole)
+    
+                    if str(reaction) == str(os.getenv('ironman')):
+                        if ironrole not in user.roles:
+                            print(user, "requested the role Iron")
+                            await user.add_roles(ironrole)
+    
+                    if str(reaction) == str(os.getenv('hp10')):
+                        if hp10role not in user.roles:
+                            print(user, "requested the role 10HP")
+                            await user.add_roles(hp10role)
+    
+                    if str(reaction) == str(os.getenv('skiller')):
+                        if skillrole not in user.roles:
+                            print(user, "requested the role Skiller")
+                            await user.add_roles(skillrole)
+    
+                    if str(reaction) == str(os.getenv('f2p')):
+                        if f2prole not in user.roles:
+                            print(user, "requested the role F2P")
+                            await user.add_roles(f2prole)
+    
+                    if str(reaction) == str(os.getenv('maxed')):
+                        if maxrole not in user.roles:
+                            print(user, "requested the role Maxed")
+                            await user.add_roles(maxrole)
+    
+                    if str(reaction) == str(os.getenv('champ')):
+                        if champrole not in user.roles:
+                            print(user, "requested the role Champ Cape")
+                            await user.add_roles(champrole)
+    
+    except:
+        client.loop.create_task(reaction_roles())
 
 client.loop.create_task(reaction_roles())
 client.run(os.getenv('TOKEN'))
