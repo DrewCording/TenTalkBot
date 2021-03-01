@@ -71,11 +71,11 @@ async def giverank(ctx, user: discord.Member, rsn):
 
     elif leadr_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is a clan Leader, cannot give them member rank.")
-        #return
+        return
 
     elif concl_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is on clan Council, cannot give them member rank.")
-        #return
+        return
     
     try:
         main_stats = Hiscores(rsn_nospace, 'N')
