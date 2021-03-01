@@ -24,10 +24,15 @@ async def welcome_set(ctx, welcome):
     welcome_file.close()
     await ctx.send("Discord Welcome message set to:")
     welcome_file = open("welcome.msg", "r")
-    await ctx.send("Hey <@!" + str(ctx.message.author.id) + ">, welcome to **" + ctx.guild.name + "**!" + "\n\n" + str(welcome_file.read()))
-    #await ctx.send(str(welcome_file.read()))
-    print(ctx.author, "set Discord welcome message to", welcome)
+    welcome_msg = str("Hey <@!" + str(ctx.message.author.id) + ">, welcome to **" + ctx.guild.name + "**!" + "\n\n" + str(welcome_file.read()))
     welcome_file.close()
+    
+    if len(welcome) > 1925:
+        await ctx.send("Message too long. Max length is 1925 characters, must allow room to @user at start")
+        await ctx.send("Your message is " + str(len(welcome)) + " characters")
+    else:
+        await ctx.send(welcome_msg)
+        print(ctx.author, "set Discord welcome message to", welcome)
 '''
 @welcome_set.error
 async def welcome_error(ctx, error):
