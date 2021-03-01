@@ -8,6 +8,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from OSRSBytes import Hiscores
 import asyncio
 from datetime import datetime
+from datetime import date
 
 load_dotenv()
 client = commands.Bot(command_prefix='!')
@@ -27,6 +28,8 @@ async def giverank(ctx, user: discord.Member, rsn):
     if ctx.channel.id == int(os.getenv('channel')):
         return
 
+    await ctx.send("Checking rank status...")
+    
     friend=0
     rsn = str(rsn)
     rsn_nospace = rsn.replace(" ","%20")
@@ -117,7 +120,7 @@ async def giverank(ctx, user: discord.Member, rsn):
 
             if uim_stats:
                 new_stats.append(int(uim_stats.skill('total', 'level')))
-                new_stats.append(int(0))
+                new_stats.append('N/A')
             else:
                 try:
                     hci_stats = Hiscores(rsn_nospace, 'HIM')
@@ -125,16 +128,16 @@ async def giverank(ctx, user: discord.Member, rsn):
                     hci_stats = 0
 
                 if hci_stats:
-                    new_stats.append(int(0))
+                    new_stats.append('N/A')
                     new_stats.append(int(hci_stats.skill('total', 'level')))
                 else:
-                    new_stats.append(int(0))
-                    new_stats.append(int(0))
+                    new_stats.append('N/A')
+                    new_stats.append('N/A')
 
         else:
-            new_stats.append(int(0))
-            new_stats.append(int(0))
-            new_stats.append(int(0))
+            new_stats.append('N/A')
+            new_stats.append('N/A')
+            new_stats.append('N/A')
 
     new_stats.append(int(main_stats.skill('total', 'level')))
     new_stats.append(int(main_stats.skill('attack', 'level')))
@@ -171,6 +174,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
+    new_smry.append(str(date.today()))
     new_smry.append(str(""))
 
     sheet_stat.append_row(new_stats, "USER_ENTERED")
@@ -188,22 +192,22 @@ async def giverank(ctx, user: discord.Member, rsn):
         sheet_smry.update_cell(i, 10, "Clan Friend")
 
     elif str(recom_rank) == "Applicant":
-        await ctx.send(rsn + " is " + str(main_stats.skill('total', 'level'))  + " total, giving Applicant rank to <@!" + str(user.id) + ">")
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value) + " total, giving Applicant rank to <@!" + str(user.id) + ">")
         await user.add_roles(aplct_role)
         sheet_smry.update_cell(i, 10, "Applicant")
 
     elif str(recom_rank) == "1 Banana":
-        await ctx.send(rsn + " is " + str(main_stats.skill('total', 'level'))  + " total, giving 1 Banana rank to <@!" + str(user.id) + ">")
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 1 Banana rank to <@!" + str(user.id) + ">")
         await user.add_roles(nana1_role)
         sheet_smry.update_cell(i, 10, "1 Banana")
 
     elif str(recom_rank) == "2 Banana":
-        await ctx.send(rsn + " is " + str(main_stats.skill('total', 'level'))  + " total, giving 2 Banana rank to <@!" + str(user.id) + ">")
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 2 Banana rank to <@!" + str(user.id) + ">")
         await user.add_roles(nana2_role)
         sheet_smry.update_cell(i, 10, "2 Banana")
 
     elif str(recom_rank) == "3 Banana":
-        await ctx.send(rsn + " is " + str(main_stats.skill('total', 'level'))  + " total, giving 3 Banana rank to <@!" + str(user.id) + ">")
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 3 Banana rank to <@!" + str(user.id) + ">")
         await user.add_roles(nana3_role)
         sheet_smry.update_cell(i, 10, "3 Banana")
 
@@ -221,5 +225,7 @@ async def giverank_error(ctx, error):
         print(ctx.author, "attempted to use !giverank without permission")
     elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
         await ctx.send("Must provide #Channel and message ids")
+    elif isinstance(error, discord.ext.commands.errors.MemberNotFound):
+        await ctx.send("Invalid Discord User")
 
 client.run(os.getenv('TOKEN'))
