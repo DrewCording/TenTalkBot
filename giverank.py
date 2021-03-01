@@ -71,11 +71,11 @@ async def giverank(ctx, user: discord.Member, rsn):
 
     elif leadr_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is a clan Leader, cannot give them member rank.")
-        return
+        #return
 
     elif concl_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is on clan Council, cannot give them member rank.")
-        return
+        #return
     
     try:
         main_stats = Hiscores(rsn_nospace, 'N')
@@ -174,7 +174,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
-    new_smry.append(str(date.today()))
+    new_smry.append(str(user.joined_at))
     new_smry.append(str(""))
 
     sheet_stat.append_row(new_stats, "USER_ENTERED")
