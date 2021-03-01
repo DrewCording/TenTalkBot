@@ -72,7 +72,7 @@ async def stats(ctx, rsn):
 
         stats_edit.text((40,80), str(main_stats.skill('defense', 'level')), (255, 255, 0), font=stats_font)
         stats_edit.text((103,80), str(main_stats.skill('herblore', 'level')), (255, 255, 0), font=stats_font)
-        stats_edit.text((168,80), str(main_stats.skill('mining', 'level')), (255, 255, 0), font=stats_font)
+        stats_edit.text((168,80), str(main_stats.skill('fishing', 'level')), (255, 255, 0), font=stats_font)
 
         stats_edit.text((40,110), str(main_stats.skill('ranged', 'level')), (255, 255, 0), font=stats_font)
         stats_edit.text((103,110), str(main_stats.skill('thieving', 'level')), (255, 255, 0), font=stats_font)
