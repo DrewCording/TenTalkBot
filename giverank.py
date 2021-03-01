@@ -174,7 +174,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
-    new_smry.append(str(date.today()))
+    new_smry.append(str(user.joined_at))
     new_smry.append(str(""))
 
     sheet_stat.append_row(new_stats, "USER_ENTERED")
