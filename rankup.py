@@ -238,7 +238,7 @@ async def rankup(ctx, user: discord.Member):
 @rankup.error
 async def rankup_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.MissingPermissions):
-        await ctx.send(name + " is requesting a rank-up. Please check if they have the appropriate levels. <@&" + str(os.getenv('leader')) + "> <@&" + str(os.getenv('council')) + ">")
+        await ctx.send("Someone is requesting a rank-up. Please check if they have the appropriate levels. <@&" + str(os.getenv('leader')) + "> <@&" + str(os.getenv('council')) + ">")
         print(datetime.now())
         print(ctx.author, "attempted to use !rankup without permission")
     elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
