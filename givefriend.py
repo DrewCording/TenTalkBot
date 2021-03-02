@@ -117,6 +117,7 @@ async def givefriend(ctx, user: discord.Member, rsn):
     sheet_frnd.append_row(new_frnd, "USER_ENTERED")
 
     await user.add_roles(frend_role)
+    await ctx.send("Gave Clan Friend rank to <@!" + str(user.id) + ">")
     await ctx.send("You must also manually assign this rank ingame, <@!" + str(ctx.author.id) + ">")
 
     if ranked:
