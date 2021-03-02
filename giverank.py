@@ -188,6 +188,7 @@ async def giverank(ctx, user: discord.Member, rsn):
 
     if str(recom_rank) == "Clan Friend":
         await ctx.send(rsn + " is not 10HP, giving Clan Friend rank to <@!" + str(user.id) + ">")
+        await ctx.send("You can manually override this if desired to admit the member anyway")
         await user.add_roles(frend_role)
         sheet_smry.update_cell(i, 10, "Clan Friend")
 
