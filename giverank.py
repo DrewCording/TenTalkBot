@@ -33,6 +33,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     friend=0
     rsn = str(rsn)
     rsn_nospace = rsn.replace(" ","%20")
+    sheet_frnd = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Clan Friends")
     sheet_smry = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Summary")
     sheet_stat = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Stats")
 
@@ -176,7 +177,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
     new_smry.append(str(user.joined_at))
     new_smry.append(str(""))
-
+    
     sheet_stat.append_row(new_stats, "USER_ENTERED")
     sheet_smry.append_row(new_smry, "USER_ENTERED")
 
@@ -185,6 +186,11 @@ async def giverank(ctx, user: discord.Member, rsn):
 
     if friend:
         await user.remove_roles(frend_role)
+        j=0
+        for membername in sheet_frnd.col_values(1):
+            j=j+1
+            if str(membername) == str(user):
+                sheet_frnd.delete_rows(j)
 
     if str(recom_rank) == "Clan Friend":
         await ctx.send(rsn + " is not 10HP, giving Clan Friend rank to <@!" + str(user.id) + ">")
@@ -225,7 +231,7 @@ async def giverank_error(ctx, error):
         print(datetime.now())
         print(ctx.author, "attempted to use !giverank without permission")
     elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
-        await ctx.send("Must provide #Channel and message ids")
+        await ctx.send("Must provide @DiscordUser and RSN")
     elif isinstance(error, discord.ext.commands.errors.MemberNotFound):
         await ctx.send("Invalid Discord User")
 
