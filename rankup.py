@@ -98,6 +98,7 @@ async def rankup(ctx, user: discord.Member):
         main_stats = 0
         return
 
+    notes = sheet_smry.cell(i, 13).value
     sheet_stat.delete_rows(i)
     sheet_smry.delete_rows(i)
     i = int(sheet_smry.row_count)
@@ -175,7 +176,7 @@ async def rankup(ctx, user: discord.Member):
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
     new_smry.append(str(user.joined_at))
-    new_smry.append(str(""))
+    new_smry.append(str(notes))
 
     sheet_stat.append_row(new_stats, "USER_ENTERED")
     sheet_smry.append_row(new_smry, "USER_ENTERED")
