@@ -14,7 +14,8 @@ while 1:
 	if pos[0] != -1:
 		pyautogui.moveTo(820, 670, 2, pyautogui.easeOutQuad)
 		pyautogui.click()
-		pyautogui.write(os.getenv('password'))
+		time.sleep(1)
+		pyautogui.write(os.getenv('password'), interval = 0.1)
 		pyautogui.hotkey('enter')
 		pyautogui.moveTo(820, 690, 1, pyautogui.easeOutQuad)
 		time.sleep(20)
