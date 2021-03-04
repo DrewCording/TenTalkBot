@@ -25,7 +25,12 @@ async def move(ctx, channel: discord.TextChannel, *message_ids: int):
         if not message:
             ctx.send("That message id does not exist")
         else:
-            await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content)
+            if message.attachments:
+                attach = await message.attachments[0].to_file()
+                await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content, file=attach)
+            else:
+                await channel.send("**Moved from <#" + str(message.channel.id) + "> -** <@" + str(message.author.id) + ">: " + message.content)
+
             print(datetime.now())
             print(ctx.author, "moved a message from", message.channel.name, "to", channel.name)
             print(message.author.name, "-", message.content)
