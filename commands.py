@@ -24,7 +24,7 @@ async def on_message(message):
                 cc_chan = client.get_channel(int(os.getenv('channel')))
                     
                 cmd_cfg = open("ccbot_commands.cfg", "r")
-                cmdlist = "Use !: "
+                cmdlist = "Prefix !: "
                 for cmd in cmd_cfg:
                     cmdlist = str(cmdlist + cmd.strip() + ", ")
 
