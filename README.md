@@ -103,6 +103,7 @@ Before running any programs, install python3 and the following pip packages onto
 	google-auth
 	google-auth-oauthlib
 	gspread
+	matplotlib
 	numpy
 	oauth2client
 	oauthlib
