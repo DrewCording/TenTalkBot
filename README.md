@@ -53,6 +53,14 @@ Discord commands
 	!move <#Channel> <message ids> - Moves the specified message IDs to the #Channel specified
 		Requires manage_messages permissions
 	!online - Shows RSNs of all players currently online in CC
+	!poll <mins> <question> <opt1> .. <opt 8>
+		Create a poll that lasts for <mins> minutes
+		Up to 8 available options
+		Use reactions to answer
+	!poll_cancel <number>
+		Cancel a specific poll number
+		Users are able to only cancel their own polls
+		Mods/Admins can calcel any poll
 	!raids - Gives a link to the Level 3 Raids Discord server
 		Supports CCBot use
 	!rankup.py <@User> - Refresh user stats in Clan Spreadsheet and give new rank to member
