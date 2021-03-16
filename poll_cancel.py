@@ -35,10 +35,10 @@ async def poll_cancel(ctx, poll_num: int):
             print(str(str(datetime.now()) + str(ctx.author) + " attempted to delete a poll without permission"))
     else:
         await ctx.send("Poll #" + str(poll_num) + " not currently running")
-'''
+
 @poll_cancel.error
 async def poll_cancel_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
         await ctx.send("Must provide poll number to cancel")
-'''
+
 client.run(os.getenv('TOKEN'))

@@ -100,7 +100,7 @@ async def poll(ctx, ttl: int, question: str, *options: str):
     poll_lock.close()
 
     while ttl:
-        await asyncio.sleep(1)
+        await asyncio.sleep(60)
         ttl=ttl-1
 
         if not os.path.exists(str("poll" + str(poll_num+1) + ".tmp")):
