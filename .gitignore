@@ -142,3 +142,4 @@ info_cc.msg
 info_disc.msg
 welcome.msg
 polls.hist
+*.tmp
