@@ -25,10 +25,10 @@ async def poll_cancel(ctx, poll_num: int):
         poll_file.close()
 
         if str(poll_data[1]).strip() == str(ctx.author.id):
-            #os.remove(str("poll" + str(poll_num) + ".tmp"))
+            os.remove(str("poll" + str(poll_num) + ".tmp"))
             await ctx.send("Cancelled poll #" + str(poll_num) + " by <@!" + str(poll_data[1]).strip() + ">")
         elif ctx.author.guild_permissions.manage_messages:
-            #os.remove(str("poll" + str(poll_num) + ".tmp"))
+            os.remove(str("poll" + str(poll_num) + ".tmp"))
             await ctx.send("Cancelled poll #" + str(poll_num) + " by <@!" + str(poll_data[1]).strip() + ">")
         else:
             await ctx.send("You can only cancel your own polls without mod status.")
