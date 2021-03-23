@@ -24,7 +24,7 @@ async def on_message(message):
                     cc_chan = client.get_channel(int(os.getenv('channel')))
                     await cc_chan.send('*Head to www tentalkosrs com for a Discord invite')
             else:
-                await message.channel.send('Head to https://www.tentalkosrs.com for a Discord invite')
+                await message.channel.send('Head to https://discord.gg/qrCw95hpyA for a Discord invite')
     else:
         return
 client.run(os.getenv('TOKEN'))

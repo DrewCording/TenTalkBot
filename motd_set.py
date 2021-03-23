@@ -15,36 +15,18 @@ async def on_ready():
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def motd_set(ctx, typ, motd):
+async def motd_set(ctx, motd):
     if ctx.channel.id == int(os.getenv('channel')):
         return
-    
-    if typ.lower() == "discord":
-        motd_file = open("motd_disc.msg", "w")
-        motd_file.write(str(motd))
-        motd_file.close()
-        await ctx.send("MOTD Discord message set to:")
-        motd_file = open("motd_disc.msg", "r")
-        await ctx.send(str(motd_file.read()))
-        print(ctx.author, "set the Discord motd to", motd)
-        motd_file.close()
 
-    elif typ.lower() == "cc":
-        if len(motd) > 79:
-            await ctx.send("Message too long. Character limit is 79 for motd cc message")
-            await ctx.send(str("Your message is " + str(len(motd)) + " characters"))
-        else:
-            motd_file = open("motd_cc.msg", "w")
-            motd_file.write(str(motd))
-            motd_file.close()
-            await ctx.send("MOTD CC message set to:")
-            motd_file = open("motd_cc.msg", "r")
-            await ctx.send(str(motd_file.read()))
-            print(ctx.author, "set the CC motd to", motd)
-            motd_file.close()
-
-    else: 
-        await ctx.send("MOTD type not valid. Specify either 'cc' or 'discord'")
+    motd_file = open("motd_disc.msg", "w")
+    motd_file.write(str(motd))
+    motd_file.close()
+    await ctx.send("MOTD message set to:")
+    motd_file = open("motd_disc.msg", "r")
+    await ctx.send(str(motd_file.read()))
+    print(ctx.author, "set the motd to", motd)
+    motd_file.close()
 
 @motd_set.error
 async def move_error(ctx, error):

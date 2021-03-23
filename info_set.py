@@ -15,36 +15,18 @@ async def on_ready():
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def info_set(ctx, typ, info):
+async def info_set(ctx, info):
     if ctx.channel.id == int(os.getenv('channel')):
         return
     
-    if typ.lower() == "discord":
-        info_file = open("info_disc.msg", "w")
-        info_file.write(str(info))
-        info_file.close()
-        await ctx.send("Info Discord message set to:")
-        info_file = open("info_disc.msg", "r")
-        await ctx.send(str(info_file.read()))
-        print(ctx.author, "set Discord info message to", info)
-        info_file.close()
-
-    elif typ.lower() == "cc":
-        if len(info) > 79:
-            await ctx.send("Message too long. Character limit is 79 for info cc message")
-            await ctx.send(str("Your message is " + str(len(info)) + " characters"))
-        else:
-            info_file = open("info_cc.msg", "w")
-            info_file.write(str(info))
-            info_file.close()
-            await ctx.send("Info CC message set to:")
-            info_file = open("info_cc.msg", "r")
-            await ctx.send(str(info_file.read()))
-            print(ctx.author, "set CC info message to", info)
-            info_file.close()
-
-    else: 
-        await ctx.send("Info type not valid. Specify either 'cc' or 'discord'")
+    info_file = open("info_disc.msg", "w")
+    info_file.write(str(info))
+    info_file.close()
+    await ctx.send("Info message set to:")
+    info_file = open("info_disc.msg", "r")
+    await ctx.send(str(info_file.read()))
+    print(ctx.author, "set info message to", info)
+    info_file.close()
 
 @info_set.error
 async def move_error(ctx, error):
