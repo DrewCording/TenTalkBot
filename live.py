@@ -20,7 +20,7 @@ async def twitch_live():
 
     try:
         while 1:
-            await asyncio.sleep (1)
+            await asyncio.sleep (60)
             users_file = open("twitch_users.log", "r")
             users = users_file.readlines()
             users_file.close()
