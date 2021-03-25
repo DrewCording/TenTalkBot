@@ -32,6 +32,8 @@ CCBot
 
 Discord commands
 
+	!commands - Shows a list of available commands
+		Supports CCBot use
 	!discord - Friendly link to the Discord server
 		Supports CCBot use
 	!givefriend <@User> <RSN> - Give user Clan Friend rank and add them to the Clan Spreadsheet
@@ -64,6 +66,7 @@ Discord commands
 	!raids - Gives a link to the Level 3 Raids Discord server
 		Supports CCBot use
 	!rankup.py <@User> - Refresh user stats in Clan Spreadsheet and give new rank to member
+	!register <Twitch Name> - Register Twitch Name to the Live bot; 1 Twitch ID per Discord user
 	!reminder - Drink Up!
 		Supports CCBot use
 	!signup - Tells mods you have passed probation and want to join sotw
@@ -75,12 +78,14 @@ Discord commands
 	!stats <rsn> - Shows stats for a specified RSN. Use quotes if RSN contains spaces "Eg RSN"
 	!sotw - shows a predefined message in sotw.msg
 		Supports CCBot use
+	!unregister <Twitch Name> - Unregister Twitch Name from the Live bot; Mods can unregister anyone, users can only unregister themselves
 	!welcome_set <"message"> - Set a pre-recorded welcome message
 		Requires manage messages permissions
 
 Other
 
 	disc_commands.cfg - Allows controlling what is shown by !commands in Discord
+	live.py - Send notifications to specified channel when Discord members go live on Twitch
 	reaction_roles.py - Gives users roles when reacting to a specified message
 	welcome.py - Shows a pre-recorded message when a new user joins the Discord
 
@@ -115,6 +120,7 @@ Before running any programs, install python3 and the following pip packages onto
 	python-dotenv
 	python-imagesearch
 	PyTweening
+	twitch-python
 	typing-extensions
 
 Create your .env file
@@ -140,6 +146,10 @@ Create your .env file
 	leader=32904583904589034
 	council=89034859034850345
 	welcome_chan=348093845908390534
+	twitch_client=fio34ni9fn93infg08543n0g
+	twitch_secret=mi09435jng03809g3480g
+	twitch_channel=4390589034859034234235
+	
 
 
 	Populate the .env file as described:
@@ -162,6 +172,9 @@ Create your .env file
 		leader is the UID of the leader role
 		council is the UID of the council role
 		welcome_chan is the channel where new member notifications are shown
+		twitch_client is your Twitch API client ID
+		twitch_secret is your Twitch API secret ID
+		twitch_channel is the UID of the discord channel where Twitch notifications will be sent
 
 Additional setup for the headed PC
 
