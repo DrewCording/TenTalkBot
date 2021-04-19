@@ -26,13 +26,26 @@ async def on_raw_reaction_add(payload):
                 user = message.guild.get_member(payload.user_id)
                 verified = discord.utils.get(message.guild.roles, name="verified")
                 unverified = discord.utils.get(message.guild.roles, name="unverified")
+                category = client.get_channel(int(os.getenv('app_cat')))
 
                 if verified not in user.roles:
                     if unverified in user.roles:
-                        await channel.send("unverified")
+                        index_file = open("react.index", "r")
+                        index = index_file.readlines()
+                        index_file.close()
 
+                        index = len(index) + 1
+                        
+                        index_file = open("react.index", "a")
+                        index_file.write(str(str(index) + "\n"))
+                        index_file.close()
+
+                        app_chan = await message.guild.create_text_channel(str("Application-" + str(index)), category=category)
+                        await app_chan.set_permissions(user, read_messages=True, send_messages=True)
+
+                        app_file = open("application.msg", "r")
+                        await app_chan.send("Hey <@!" + str(user.id) + ">, welcome to **" + user.guild.name + "**!\n\n" + str(app_file.read()))
+                        app_file.close()
                 
-                #await channel.send ("No " + str(payload.emoji.name) + " for you <@!" + str(payload.user_id) + ">")
-
 client.run(os.getenv('TOKEN'))
 
