@@ -23,8 +23,8 @@ async def verify(ctx, user: discord.Member):
 
         if verified not in user.roles:
             if unverified in user.roles:
-                user.remove_roles(unverified)
-                user.add_roles(verified)
+                await user.remove_roles(unverified)
+                await user.add_roles(verified)
                 await ctx.send("<@!" + str(user.id) + "> is now verified. \nThis channel will self-destruct in 60 seconds")
                 await asyncio.sleep(60)
                 await ctx.channel.delete()
