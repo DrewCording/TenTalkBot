@@ -145,3 +145,5 @@ polls.hist
 *.tmp
 application.msg
 react.index
+ticket.index
+ticket.msg
