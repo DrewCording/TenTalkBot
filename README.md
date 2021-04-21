@@ -1,5 +1,5 @@
-TenTalkBot
-Discord Bot for OSRS CC Ten Talk
+Burnt Bot
+Discord Bot for OSRS CC Burnt Fish
 
 ===== Bot Descriptions =====
 
