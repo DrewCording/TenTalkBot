@@ -22,9 +22,9 @@ async def on_message(message):
             if message.author == client.user:
                 if message.channel.id == int(os.getenv('botchan')):
                     cc_chan = client.get_channel(int(os.getenv('channel')))
-                    await cc_chan.send('*Head to www tentalkosrs com for a Discord invite')
+                    await cc_chan.send('*Head to https://discord.gg/hCaW4KaYKx for a Discord invite')
             else:
-                await message.channel.send('Head to https://discord.gg/dSkJvU9yCs for a Discord invite')
+                await message.channel.send('Head to https://discord.gg/hCaW4KaYKx for a Discord invite')
     else:
         return
 client.run(os.getenv('TOKEN'))
