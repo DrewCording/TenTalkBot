@@ -25,7 +25,7 @@ async def on_message(message):
 				text = str("/" + content[1:])
 				await message.delete()
 				intv = "0.0" + str(random.randrange(50, 99, 1))
-				pyautogui.write(text, interval = intv)
+				pyautogui.write(text)#, interval = intv)
 				pyautogui.hotkey('enter')
 	else:
 		if message.channel.id == int(os.getenv('channel')):
@@ -85,7 +85,7 @@ async def on_message(message):
 					
 			await message.delete()
 			intv = "0.0" + str(random.randrange(50, 99, 1))
-			pyautogui.write(text, interval = intv)
+			pyautogui.write(text)#, interval = intv)
 			pyautogui.hotkey('enter')
 				
 client.run(os.getenv('TOKEN'))

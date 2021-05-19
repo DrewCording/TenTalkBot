@@ -20,7 +20,12 @@ from OSRSBytes import Hiscores
 from PIL import Image, ImageFont, ImageDraw
 
 load_dotenv()
-client = commands.Bot(command_prefix='!')
+intents = discord.Intents.all()
+client = commands.Bot(command_prefix='!', intents=intents)
+
+scope = ['https://spreadsheets.google.com/feeds']
+creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+sheetclient = gspread.authorize(creds)
 
 @client.event
 async def on_ready():

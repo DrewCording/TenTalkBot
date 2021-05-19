@@ -16,7 +16,7 @@ while 1:
         pyautogui.moveTo(410, 350, 2, pyautogui.easeOutQuad)
         pyautogui.click()
         time.sleep(1)
-        pyautogui.write(os.getenv('password'), interval = 0.1)
+        pyautogui.write(os.getenv('password'))#, interval = 0.1)
         pyautogui.hotkey('enter')
         pyautogui.moveTo(420, 380, 1, pyautogui.easeOutQuad)
         time.sleep(20)
