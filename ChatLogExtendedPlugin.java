@@ -57,6 +57,13 @@ public class ChatLogExtendedPlugin extends Plugin {
                     friendsChatLogger.info("[{}] {}: {}", event.getSender(), event.getName(), event.getMessage());
                 }
                 break;
+
+	    case CLAN_CHAT:
+                if (config.logFriendsChat()) {
+                    friendsChatLogger.info("[{}] {}: {}", event.getSender(), event.getName(), event.getMessage());
+                }
+                break;
+
             case PRIVATECHAT:
             case MODPRIVATECHAT:
                 if (config.logPrivateChat()) {

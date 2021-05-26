@@ -22,7 +22,7 @@ async def on_message(message):
 		if message.channel.id == int(os.getenv('channel')):
 			content = str(message.content)
 			if content.startswith('*'):
-				text = str("/" + content[1:])
+				text = str("//" + content[1:])
 				await message.delete()
 				intv = "0.0" + str(random.randrange(50, 99, 1))
 				pyautogui.write(text)#, interval = intv)
@@ -74,9 +74,9 @@ async def on_message(message):
 				content = content.replace(emot_full, emot_cc)
 			
 			if message.author.nick:
-				text = ("/[" + message.author.nick + "] " + content)
+				text = ("//[" + message.author.nick + "] " + content)
 			else:
-				text = ("/[" + message.author.name + "] " + content)
+				text = ("//[" + message.author.name + "] " + content)
 					
 			if len(text) > 80:
 				text = text[:80]
