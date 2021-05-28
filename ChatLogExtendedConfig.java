@@ -26,11 +26,11 @@ public interface ChatLogExtendedConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "friends",
-            name = "Friends Chat (Clan Chat)",
-            description = "Enables logging of the friends chat"
+            keyName = "clan",
+            name = "Clan Chat",
+            description = "Enables logging of the clan chat"
     )
-    default boolean logFriendsChat() {
+    default boolean logClanChat() {
         return true;
     }
 }

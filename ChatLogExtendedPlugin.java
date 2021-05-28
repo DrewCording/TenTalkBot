@@ -28,7 +28,7 @@ public class ChatLogExtendedPlugin extends Plugin {
 
     private Logger publicChatLogger;
     private Logger privateChatLogger;
-    private Logger friendsChatLogger;
+    private Logger clanChatLogger;
 
     @Provides
     ChatLogExtendedConfig provideConfig(ConfigManager configManager) {
@@ -39,28 +39,21 @@ public class ChatLogExtendedPlugin extends Plugin {
     protected void startUp() {
         publicChatLogger = setupLogger("PublicChatLogger", "public");
         privateChatLogger = setupLogger("PrivateChatLogger", "private");
-        friendsChatLogger = setupLogger("FriendsChatLogger", "friends");
+        clanChatLogger = setupLogger("ClanChatLogger", "clan");
     }
 
     @Subscribe
     public void onChatMessage(ChatMessage event) {
         switch (event.getType()) {
 
-            case FRIENDSCHATNOTIFICATION:
-                log.debug("Got notification");
-                if (config.logFriendsChat()) {
-                    friendsChatLogger.info("{}", event.getMessage());
+            case CLAN_MESSAGE:
+                if (config.logClanChat()) {
+                    clanChatLogger.info("{}", event.getMessage());
                 }
-
-            case FRIENDSCHAT:
-                if (config.logFriendsChat()) {
-                    friendsChatLogger.info("[{}] {}: {}", event.getSender(), event.getName(), event.getMessage());
-                }
-                break;
 
 	    case CLAN_CHAT:
-                if (config.logFriendsChat()) {
-                    friendsChatLogger.info("[{}] {}: {}", event.getSender(), event.getName(), event.getMessage());
+                if (config.logClanChat()) {
+                    clanChatLogger.info("[{}] {}: {}", event.getSender(), event.getName(), event.getMessage());
                 }
                 break;
 

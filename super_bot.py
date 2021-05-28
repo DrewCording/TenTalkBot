@@ -243,38 +243,27 @@ async def givefriend(ctx, user: discord.Member, rsn):
     sheet_smry = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Summary")
     sheet_stat = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Stats")
 
-    brnze_role = discord.utils.get(ctx.guild.roles, name="Bronze")
-    nana3_role = discord.utils.get(ctx.guild.roles, name="🍌🍌🍌")
-    nana2_role = discord.utils.get(ctx.guild.roles, name="🍌🍌")
-    nana1_role = discord.utils.get(ctx.guild.roles, name="🍌")
-    aplct_role = discord.utils.get(ctx.guild.roles, name="Applicant")
+    memb_role = discord.utils.get(ctx.guild.roles, name="Clan Member")
+    rune_role = discord.utils.get(ctx.guild.roles, name="Rune")
+    addy_role = discord.utils.get(ctx.guild.roles, name="Addy")
+    mith_role = discord.utils.get(ctx.guild.roles, name="Mith")
+    stel_role = discord.utils.get(ctx.guild.roles, name="Steel")
+    iron_role = discord.utils.get(ctx.guild.roles, name="Iron")
+    brnz_role = discord.utils.get(ctx.guild.roles, name="Bronze")
+    maxd_role = discord.utils.get(ctx.guild.roles, name="Maxed")
     frend_role = discord.utils.get(ctx.guild.roles, name="Clan Friend")
     leadr_role = discord.utils.get(ctx.guild.roles, name="Leader")
     concl_role = discord.utils.get(ctx.guild.roles, name="Council")
 
-    if brnze_role in user.roles:
+    if memb_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
-        await user.remove_roles(brnze_role)
-        ranked=1
-
-    elif nana3_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
-        await user.remove_roles(nana3_role)
-        ranked=1
-
-    elif nana2_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
-        await user.remove_roles(nana2_role)
-        ranked=1
-
-    elif nana1_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
-        await user.remove_roles(nana1_role)
-        ranked=1
-
-    elif aplct_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
-        await user.remove_roles(aplct_role)
+        await user.remove_roles(memb_role)
+        await user.remove_roles(rune_role)
+        await user.remove_roles(addy_role)
+        await user.remove_roles(mith_role)
+        await user.remove_roles(stel_role)
+        await user.remove_roles(iron_role)
+        await user.remove_roles(brnz_role)
         ranked=1
 
     elif frend_role in user.roles:
@@ -364,33 +353,20 @@ async def giverank(ctx, user: discord.Member, rsn):
     sheet_smry = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Summary")
     sheet_stat = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Stats")
 
-    brnze_role = discord.utils.get(ctx.guild.roles, name="Bronze")
-    nana3_role = discord.utils.get(ctx.guild.roles, name="🍌🍌🍌")
-    nana2_role = discord.utils.get(ctx.guild.roles, name="🍌🍌")
-    nana1_role = discord.utils.get(ctx.guild.roles, name="🍌")
-    aplct_role = discord.utils.get(ctx.guild.roles, name="Applicant")
+    memb_role = discord.utils.get(ctx.guild.roles, name="Clan Member")
+    rune_role = discord.utils.get(ctx.guild.roles, name="Rune")
+    addy_role = discord.utils.get(ctx.guild.roles, name="Addy")
+    mith_role = discord.utils.get(ctx.guild.roles, name="Mith")
+    stel_role = discord.utils.get(ctx.guild.roles, name="Steel")
+    iron_role = discord.utils.get(ctx.guild.roles, name="Iron")
+    brnz_role = discord.utils.get(ctx.guild.roles, name="Bronze")
+    maxd_role = discord.utils.get(ctx.guild.roles, name="Maxed")
     frend_role = discord.utils.get(ctx.guild.roles, name="Clan Friend")
     leadr_role = discord.utils.get(ctx.guild.roles, name="Leader")
     concl_role = discord.utils.get(ctx.guild.roles, name="Council")
 
-    if brnze_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup/!rankdown to change.")
-        return
-
-    elif nana3_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup/!rankdown to change.")
-        return
-
-    elif nana2_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup/!rankdown to change.")
-        return
-
-    elif nana1_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup/!rankdown to change.")
-        return
-
-    elif aplct_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup/!rankdown to change.")
+    if memb_role in user.roles:
+        await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup to change.")
         return
 
     elif frend_role in user.roles:
@@ -497,8 +473,8 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append(str("=0.25*('Member Stats'!H" + str(i) + "+'Member Stats'!J" + str(i) + "+0.5*'Member Stats'!L" + str(i) + ")+MAX((13/40)*('Member Stats'!I" + str(i) + "+'Member Stats'!G" + str(i) + "),((13/40)*('Member Stats'!K" + str(i) + "*1.5)),((13/40)*('Member Stats'!M" + str(i) + "*1.5)))"))
     new_smry.append("='Member Stats'!J" + str(i))
     new_smry.append(str("=COUNTIF('Member Stats'!G" + str(i) + ":AC" + str(i) + ",99)"))
-    new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"Iron\")),\"Normal\")"))
-    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",IF(AND(C" + str(i) + "<900,G" + str(i) + "=\"Normal\"),\"Applicant\",IF(AND(C" + str(i) + "<1250,G" + str(i) + "=\"Normal\"),\"1 Banana\",IF(AND(C" + str(i) + "<1400,G" + str(i) + "=\"Normal\"),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"Normal\"),\"3 Banana\",IF(AND(C" + str(i) + "<750,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"Applicant\",IF(AND(C" + str(i) + "<1100,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"1 Banana\",IF(AND(C" + str(i) + "<1250,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"3 Banana\",IF(AND(C" + str(i) + "<750,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"Applicant\",IF(AND(C" + str(i) + "<1000,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"1 Banana\",IF(AND(C" + str(i) + "<1150,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"2 Banana\",IF(AND(C" + str(i) + "<2277,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"3 Banana\",IF(AND(C" + str(i) + "<650,G" + str(i) + "=\"UIM\"),\"Applicant\",IF(AND(C" + str(i) + "<900,G" + str(i) + "=\"UIM\"),\"1 Banana\",IF(AND(C" + str(i) + "<1050,G" + str(i) + "=\"UIM\"),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"UIM\"),\"3 Banana\",\"ERROR\")))))))))))))))))"))
+    new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"IM\")),\"Normal\")"))
+    new_smry.append(str("=IF(E" + str(i)+ ">10,\"Clan Friend\",(IF(G" + str(i)+ "=\"Normal\",(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1400,\"Adamant\",(IF(C" + str(i)+ ">=1200,\"Mithril\",(IF(C" + str(i)+ ">=900,\"Steel\",(IF(C" + str(i)+ ">=600,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1900,\"Adamant\",(IF(C" + str(i)+ ">=1500,\"Mithril\",(IF(C" + str(i)+ ">=1100,\"Steel\",(IF(C" + str(i)+ ">=700,\"Iron\",\"Bronze\")))))))))))),(IF(OR(G" + str(i)+ "=\"IM\",G" + str(i)+ "=\"Dead HCIM\",G" + str(i)+ "=\"HCIM\"),(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1300,\"Adamant\",(IF(C" + str(i)+ ">=1100,\"Mithril\",(IF(C" + str(i)+ ">=800,\"Steel\",(IF(C" + str(i)+ ">=500,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1800,\"Adamant\",(IF(C" + str(i)+ ">=1400,\"Mithril\",(IF(C" + str(i)+ ">=1000,\"Steel\",(IF(C" + str(i)+ ">=600,\"Iron\",\"Bronze\")))))))))))),(IF(G" + str(i)+ "=\"UIM\",(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1200,\"Adamant\",(IF(C" + str(i)+ ">=1000,\"Mithril\",(IF(C" + str(i)+ ">=700,\"Steel\",(IF(C" + str(i)+ ">=400,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1700,\"Adamant\",(IF(C" + str(i)+ ">=1300,\"Mithril\",(IF(C" + str(i)+ ">=900,\"Steel\",(IF(C" + str(i)+ ">=500,\"Iron\",\"Bronze\")))))))))))),\"ERROR\")))))))"))
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
@@ -525,26 +501,38 @@ async def giverank(ctx, user: discord.Member, rsn):
         await user.add_roles(frend_role)
         sheet_smry.update_cell(i, 10, "Clan Friend")
 
-    elif str(recom_rank) == "Applicant":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value) + " total, giving Applicant rank to <@!" + str(user.id) + ">")
-        await user.add_roles(aplct_role)
-        sheet_smry.update_cell(i, 10, "Applicant")
+    elif str(recom_rank) == "Bronze":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value) + " total, giving Bronze rank to <@!" + str(user.id) + ">")
+        await user.add_roles(brnz_role)
+        sheet_smry.update_cell(i, 10, "Bronze")
 
-    elif str(recom_rank) == "1 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 1 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana1_role)
-        sheet_smry.update_cell(i, 10, "1 Banana")
+    elif str(recom_rank) == "Iron":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Iron rank to <@!" + str(user.id) + ">")
+        await user.add_roles(iron_role)
+        sheet_smry.update_cell(i, 10, "Iron")
 
-    elif str(recom_rank) == "2 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 2 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana2_role)
-        sheet_smry.update_cell(i, 10, "2 Banana")
+    elif str(recom_rank) == "Steel":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Steel rank to <@!" + str(user.id) + ">")
+        await user.add_roles(stel_role)
+        sheet_smry.update_cell(i, 10, "Steel")
 
-    elif str(recom_rank) == "3 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 3 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana3_role)
-        sheet_smry.update_cell(i, 10, "3 Banana")
+    elif str(recom_rank) == "Mithril":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Mith rank to <@!" + str(user.id) + ">")
+        await user.add_roles(mith_role)
+        sheet_smry.update_cell(i, 10, "Mith")
 
+    elif str(recom_rank) == "Adamant":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Addy rank to <@!" + str(user.id) + ">")
+        await user.add_roles(addy_role)
+        sheet_smry.update_cell(i, 10, "Addy")
+
+    elif str(recom_rank) == "Rune":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Rune rank to <@!" + str(user.id) + ">")
+        await user.add_roles(rune_role)
+        sheet_smry.update_cell(i, 10, "Rune")
+
+
+    await user.add_roles(memb_role)
     await user.edit(nick=rsn)
     await ctx.send("You must also manually assign this rank ingame, <@!" + str(ctx.author.id) + ">")
 
@@ -907,30 +895,28 @@ async def rankup(ctx, user: discord.Member):
     sheet_smry = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Summary")
     sheet_stat = sheetclient.open_by_key(os.getenv('sheet')).worksheet("Member Stats")
 
-    brnze_role = discord.utils.get(ctx.guild.roles, name="Bronze")
-    nana3_role = discord.utils.get(ctx.guild.roles, name="🍌🍌🍌")
-    nana2_role = discord.utils.get(ctx.guild.roles, name="🍌🍌")
-    nana1_role = discord.utils.get(ctx.guild.roles, name="🍌")
-    aplct_role = discord.utils.get(ctx.guild.roles, name="Applicant")
+    memb_role = discord.utils.get(ctx.guild.roles, name="Clan Member")
+    rune_role = discord.utils.get(ctx.guild.roles, name="Rune")
+    addy_role = discord.utils.get(ctx.guild.roles, name="Addy")
+    mith_role = discord.utils.get(ctx.guild.roles, name="Mith")
+    stel_role = discord.utils.get(ctx.guild.roles, name="Steel")
+    iron_role = discord.utils.get(ctx.guild.roles, name="Iron")
+    brnz_role = discord.utils.get(ctx.guild.roles, name="Bronze")
+    maxd_role = discord.utils.get(ctx.guild.roles, name="Maxed")
     frend_role = discord.utils.get(ctx.guild.roles, name="Clan Friend")
     leadr_role = discord.utils.get(ctx.guild.roles, name="Leader")
     concl_role = discord.utils.get(ctx.guild.roles, name="Council")
 
-    if brnze_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already Bronze, can't rank-up any further.")
+
+    if maxd_role in user.roles:
+        await ctx.send("<@!" + str(user.id) + "> is already Maxed, can't rank-up any further.")
         return
 
-    elif nana3_role in user.roles:
-        await ctx.send("<@!" + str(user.id) + "> is already 3 Banana. Bronze rank-ups must be done manually.")
+    elif rune_role in user.roles:
+        await ctx.send("<@!" + str(user.id) + "> is already Rune. Maxed rank-ups must be done manually.")
         return
 
-    elif nana2_role in user.roles:
-        ready=1
-
-    elif nana1_role in user.roles:
-        ready=1
-
-    elif aplct_role in user.roles:
+    elif memb_role in user.roles:
         ready=1
 
     elif frend_role in user.roles:
@@ -946,7 +932,7 @@ async def rankup(ctx, user: discord.Member):
         return
 
     if not ready:
-        await ctx.send("<@!" + str(user.id) + "> has no rank. Use !giverank to add new members")
+        await ctx.send("<@!" + str(user.id) + "> is not a clan member. Use !giverank to add new members")
         return
 
     i=0
@@ -1042,8 +1028,8 @@ async def rankup(ctx, user: discord.Member):
     new_smry.append(str("=0.25*('Member Stats'!H" + str(i) + "+'Member Stats'!J" + str(i) + "+0.5*'Member Stats'!L" + str(i) + ")+MAX((13/40)*('Member Stats'!I" + str(i) + "+'Member Stats'!G" + str(i) + "),((13/40)*('Member Stats'!K" + str(i) + "*1.5)),((13/40)*('Member Stats'!M" + str(i) + "*1.5)))"))
     new_smry.append("='Member Stats'!J" + str(i))
     new_smry.append(str("=COUNTIF('Member Stats'!G" + str(i) + ":AC" + str(i) + ",99)"))
-    new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"Iron\")),\"Normal\")"))
-    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",IF(AND(C" + str(i) + "<900,G" + str(i) + "=\"Normal\"),\"Applicant\",IF(AND(C" + str(i) + "<1250,G" + str(i) + "=\"Normal\"),\"1 Banana\",IF(AND(C" + str(i) + "<1400,G" + str(i) + "=\"Normal\"),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"Normal\"),\"3 Banana\",IF(AND(C" + str(i) + "<750,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"Applicant\",IF(AND(C" + str(i) + "<1100,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"1 Banana\",IF(AND(C" + str(i) + "<1250,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"Normal\",D" + str(i) + "<4),\"3 Banana\",IF(AND(C" + str(i) + "<750,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"Applicant\",IF(AND(C" + str(i) + "<1000,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"1 Banana\",IF(AND(C" + str(i) + "<1150,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"2 Banana\",IF(AND(C" + str(i) + "<2277,OR(G" + str(i) + "=\"Iron\",G" + str(i) + "=\"HCIM\",G" + str(i) + "=\"Dead HCIM\")),\"3 Banana\",IF(AND(C" + str(i) + "<650,G" + str(i) + "=\"UIM\"),\"Applicant\",IF(AND(C" + str(i) + "<900,G" + str(i) + "=\"UIM\"),\"1 Banana\",IF(AND(C" + str(i) + "<1050,G" + str(i) + "=\"UIM\"),\"2 Banana\",IF(AND(C" + str(i) + "<2277,G" + str(i) + "=\"UIM\"),\"3 Banana\",\"ERROR\")))))))))))))))))"))
+    new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"IM\")),\"Normal\")"))
+    new_smry.append(str("=IF(E" + str(i)+ ">10,\"Clan Friend\",(IF(G" + str(i)+ "=\"Normal\",(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1400,\"Adamant\",(IF(C" + str(i)+ ">=1200,\"Mithril\",(IF(C" + str(i)+ ">=900,\"Steel\",(IF(C" + str(i)+ ">=600,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1900,\"Adamant\",(IF(C" + str(i)+ ">=1500,\"Mithril\",(IF(C" + str(i)+ ">=1100,\"Steel\",(IF(C" + str(i)+ ">=700,\"Iron\",\"Bronze\")))))))))))),(IF(OR(G" + str(i)+ "=\"IM\",G" + str(i)+ "=\"Dead HCIM\",G" + str(i)+ "=\"HCIM\"),(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1300,\"Adamant\",(IF(C" + str(i)+ ">=1100,\"Mithril\",(IF(C" + str(i)+ ">=800,\"Steel\",(IF(C" + str(i)+ ">=500,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1800,\"Adamant\",(IF(C" + str(i)+ ">=1400,\"Mithril\",(IF(C" + str(i)+ ">=1000,\"Steel\",(IF(C" + str(i)+ ">=600,\"Iron\",\"Bronze\")))))))))))),(IF(G" + str(i)+ "=\"UIM\",(IF(D" + str(i)+ "<6,(IF(C" + str(i)+ ">=1500,\"Rune\",(IF(C" + str(i)+ ">=1200,\"Adamant\",(IF(C" + str(i)+ ">=1000,\"Mithril\",(IF(C" + str(i)+ ">=700,\"Steel\",(IF(C" + str(i)+ ">=400,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i)+ ">=2000,\"Rune\",(IF(C" + str(i)+ ">=1700,\"Adamant\",(IF(C" + str(i)+ ">=1300,\"Mithril\",(IF(C" + str(i)+ ">=900,\"Steel\",(IF(C" + str(i)+ ">=500,\"Iron\",\"Bronze\")))))))))))),\"ERROR\")))))))"))
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
@@ -1056,51 +1042,50 @@ async def rankup(ctx, user: discord.Member):
     await asyncio.sleep(1)
     recom_rank = sheet_smry.cell(i, 8).value
 
+    await user.remove_roles(rune_role)
+    await user.remove_roles(addy_role)
+    await user.remove_roles(mith_role)
+    await user.remove_roles(stel_role)
+    await user.remove_roles(iron_role)
+    await user.remove_roles(brnz_role)
+    await user.remove_roles(frend_role)
+
+
     if str(recom_rank) == "Clan Friend":
-        await ctx.send(rsn + " is not 10HP, giving Clan Friend rank to <@!" + str(user.id) + ">")
+        await ctx.send(rsn + " is no longer 10HP, giving Clan Friend rank to <@!" + str(user.id) + ">")
         await ctx.send("You can manually override this if desired to admit the member anyway")
         await user.add_roles(frend_role)
-        await user.remove_roles(aplct_role)
-        await user.remove_roles(nana1_role)
-        await user.remove_roles(nana2_role)
-        await user.remove_roles(nana3_role)
         sheet_smry.update_cell(i, 10, "Clan Friend")
 
-    elif str(recom_rank) == "Applicant":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value) + " total, giving Applicant rank to <@!" + str(user.id) + ">")
-        await user.add_roles(aplct_role)
-        await user.remove_roles(nana1_role)
-        await user.remove_roles(nana2_role)
-        await user.remove_roles(nana3_role)
-        await user.remove_roles(frend_role)
-        sheet_smry.update_cell(i, 10, "Applicant")
+    elif str(recom_rank) == "Bronze":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value) + " total, giving Bronze rank to <@!" + str(user.id) + ">")
+        await user.add_roles(brnz_role)
+        sheet_smry.update_cell(i, 10, "Bronze")
 
-    elif str(recom_rank) == "1 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 1 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana1_role)
-        await user.remove_roles(aplct_role)
-        await user.remove_roles(nana2_role)
-        await user.remove_roles(nana3_role)
-        await user.remove_roles(frend_role)
-        sheet_smry.update_cell(i, 10, "1 Banana")
+    elif str(recom_rank) == "Iron":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Iron rank to <@!" + str(user.id) + ">")
+        await user.add_roles(iron_role)
+        sheet_smry.update_cell(i, 10, "Iron")
 
-    elif str(recom_rank) == "2 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 2 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana2_role)
-        await user.remove_roles(aplct_role)
-        await user.remove_roles(nana1_role)
-        await user.remove_roles(nana3_role)
-        await user.remove_roles(frend_role)
-        sheet_smry.update_cell(i, 10, "2 Banana")
+    elif str(recom_rank) == "Steel":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Steel rank to <@!" + str(user.id) + ">")
+        await user.add_roles(stel_role)
+        sheet_smry.update_cell(i, 10, "Steel")
 
-    elif str(recom_rank) == "3 Banana":
-        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving 3 Banana rank to <@!" + str(user.id) + ">")
-        await user.add_roles(nana3_role)
-        await user.remove_roles(aplct_role)
-        await user.remove_roles(nana1_role)
-        await user.remove_roles(nana2_role)
-        await user.remove_roles(frend_role)
-        sheet_smry.update_cell(i, 10, "3 Banana")
+    elif str(recom_rank) == "Mithril":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Mith rank to <@!" + str(user.id) + ">")
+        await user.add_roles(mith_role)
+        sheet_smry.update_cell(i, 10, "Mith")
+
+    elif str(recom_rank) == "Adamant":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Addy rank to <@!" + str(user.id) + ">")
+        await user.add_roles(addy_role)
+        sheet_smry.update_cell(i, 10, "Addy")
+
+    elif str(recom_rank) == "Rune":
+        await ctx.send(rsn + " is " + str(sheet_smry.cell(i, 3).value)  + " total, giving Rune rank to <@!" + str(user.id) + ">")
+        await user.add_roles(rune_role)
+        sheet_smry.update_cell(i, 10, "Rune")
 
     await user.edit(nick=rsn)
     await ctx.send("You must also manually assign this rank ingame, <@!" + str(ctx.author.id) + ">")
@@ -1130,11 +1115,10 @@ async def on_raw_reaction_add(payload):
 
             uimrole = discord.utils.get(message.guild.roles, name="UIM")
             hcimrole = discord.utils.get(message.guild.roles, name="HCIM")
-            ironrole = discord.utils.get(message.guild.roles, name="Iron")
+            ironrole = discord.utils.get(message.guild.roles, name="IM")
             hp10role = discord.utils.get(message.guild.roles, name="10HP")
             skillrole = discord.utils.get(message.guild.roles, name="Skiller")
             f2prole = discord.utils.get(message.guild.roles, name="F2P")
-            maxrole = discord.utils.get(message.guild.roles, name="Maxed")
             champrole = discord.utils.get(message.guild.roles, name="Champ Cape")
 
             if str(payload.emoji) == str(os.getenv('uim')):
@@ -1149,7 +1133,7 @@ async def on_raw_reaction_add(payload):
 
             elif str(payload.emoji) == str(os.getenv('ironman')):
                 if ironrole not in user.roles:
-                    print(user, "requested the role Iron")
+                    print(user, "requested the role IM")
                     await user.add_roles(ironrole)
 
             elif str(payload.emoji) == str(os.getenv('hp10')):
@@ -1166,11 +1150,6 @@ async def on_raw_reaction_add(payload):
                 if f2prole not in user.roles:
                     print(user, "requested the role F2P")
                     await user.add_roles(f2prole)
-
-            elif str(payload.emoji) == str(os.getenv('maxed')):
-                if maxrole not in user.roles:
-                    print(user, "requested the role Maxed")
-                    await user.add_roles(maxrole)
 
             elif str(payload.emoji) == str(os.getenv('champ')):
                 if champrole not in user.roles:
@@ -1191,11 +1170,10 @@ async def on_raw_reaction_remove(payload):
 
             uimrole = discord.utils.get(message.guild.roles, name="UIM")
             hcimrole = discord.utils.get(message.guild.roles, name="HCIM")
-            ironrole = discord.utils.get(message.guild.roles, name="Iron")
+            ironrole = discord.utils.get(message.guild.roles, name="IM")
             hp10role = discord.utils.get(message.guild.roles, name="10HP")
             skillrole = discord.utils.get(message.guild.roles, name="Skiller")
             f2prole = discord.utils.get(message.guild.roles, name="F2P")
-            maxrole = discord.utils.get(message.guild.roles, name="Maxed")
             champrole = discord.utils.get(message.guild.roles, name="Champ Cape")
 
             if str(payload.emoji) == str(os.getenv('uim')):
@@ -1210,7 +1188,7 @@ async def on_raw_reaction_remove(payload):
 
             elif str(payload.emoji) == str(os.getenv('ironman')):
                 if ironrole in user.roles:
-                    print(user, "removed the role Iron")
+                    print(user, "removed the role IM")
                     await user.remove_roles(ironrole)
 
             elif str(payload.emoji) == str(os.getenv('hp10')):
@@ -1227,11 +1205,6 @@ async def on_raw_reaction_remove(payload):
                 if f2prole in user.roles:
                     print(user, "removed the role F2P")
                     await user.remove_roles(f2prole)
-
-            elif str(payload.emoji) == str(os.getenv('maxed')):
-                if maxrole in user.roles:
-                    print(user, "removed the role Maxed")
-                    await user.remove_roles(maxrole)
 
             elif str(payload.emoji) == str(os.getenv('champ')):
                 if champrole in user.roles:
