@@ -19,8 +19,7 @@ async def cc_to_disc():
 	channel = client.get_channel(int(os.getenv('channel')))
 	file_to_watch = os.getenv('cclog')
 	oldline = " "
-	login_ptrn_rank = "</col> <img=(.*?)>"
-	login_ptrn_unrank = "</col>(.*?)<col="
+	login_ptrn_rank = "<col=ef5050>(.*?)</col>"
 	login_ment = ""
 	
 	try:
@@ -33,29 +32,15 @@ async def cc_to_disc():
 				login_ment = re.search(login_ptrn_rank, last_line)
 				
 				if login_ment:
-					login_full = str("</col> <img=" + login_ment.group(1) + ">] <col=ef5050>")
-					last_line = last_line.replace(login_full, "] ")
-					last_line = last_line.replace("[] : [<col=9070ff>", "[")
-					last_line = last_line.replace("</col>", "")
+					last_line = str("[Ten Talk] " + login_ment.group(1))
 					login_ment = ""
 					
-				login_ment = re.search(login_ptrn_unrank, last_line)
-				
-				if login_ment:
-					last_line = last_line.replace("</col>] <col=ef5050>", "] ")
-					last_line = last_line.replace("[] : [<col=9070ff>", "[")
-					last_line = last_line.replace("</col>", "")
-					login_ment = ""
-				
 				if last_line.endswith("You have left the channel."):
 					last_line = "TenTalkBot was disconnected. Attempting to reconnect..."
 					
-				if last_line.endswith("Attempting to join channel..."):
+				if last_line.endswith("To talk in your clan's channel, start each line of chat with // or /c."):
 					last_line = "TenTalkBot has been reconnected"
 					
-				if last_line.endswith("To talk, start each line of chat with the / symbol."):
-					last_line = "TenTalkBot has been reconnected"
-				
 				last_line = last_line.replace("Â", "")
 				last_line = last_line.replace("<img=2>", os.getenv('ironman'))
 				last_line = last_line.replace("<img=3>", os.getenv('uim'))
