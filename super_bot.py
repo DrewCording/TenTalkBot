@@ -23,6 +23,8 @@ load_dotenv()
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='!', intents=intents)
 
+helix = twitch.Helix(os.getenv('twitch_client'), os.getenv('twitch_secret'))
+
 scope = ['https://spreadsheets.google.com/feeds']
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 sheetclient = gspread.authorize(creds)
