@@ -236,6 +236,10 @@ async def givefriend(ctx, user: discord.Member, rsn):
     if ctx.channel.id == int(os.getenv('channel')):
         return
 
+    if ctx.channel.category_id != int(os.getenv('app_cat')):
+        await ctx.send("This command can only be used in an application channel")
+        return
+
     await ctx.send("Checking rank status...")
 
     ranked=0
@@ -256,6 +260,7 @@ async def givefriend(ctx, user: discord.Member, rsn):
     frend_role = discord.utils.get(ctx.guild.roles, name="Clan Friend")
     leadr_role = discord.utils.get(ctx.guild.roles, name="Leader")
     concl_role = discord.utils.get(ctx.guild.roles, name="Council")
+    unverified = discord.utils.get(ctx.guild.roles, name="unverified")
 
     if memb_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is a clan member. Demoting them to friend. Use !giverank to undo this.")
@@ -314,6 +319,7 @@ async def givefriend(ctx, user: discord.Member, rsn):
     sheet_frnd.append_row(new_frnd, "USER_ENTERED")
 
     await user.add_roles(frend_role)
+    await user.remove_roles(unverified)
     await ctx.send("Gave Clan Friend rank to <@!" + str(user.id) + ">")
     await ctx.send("You must also manually assign this rank ingame, <@!" + str(ctx.author.id) + ">")
 
@@ -328,6 +334,11 @@ async def givefriend(ctx, user: discord.Member, rsn):
     print(datetime.now())
     print(str(str(ctx.author) + " gave friend to " + str(user) + " with RSN " + rsn))
     await user.edit(nick=rsn)
+
+    await ctx.send("This channel will self-destruct in 24 hours")
+    await asyncio.sleep(86400)
+    await ctx.channel.delete()
+ 
 
 @givefriend.error
 async def givefriend_error(ctx, error):
@@ -344,6 +355,10 @@ async def givefriend_error(ctx, error):
 @commands.has_permissions(manage_roles=True)
 async def giverank(ctx, user: discord.Member, rsn):
     if ctx.channel.id == int(os.getenv('channel')):
+        return
+
+    if ctx.channel.category_id != int(os.getenv('app_cat')):
+        await ctx.send("This command can only be used in an application channel")
         return
 
     await ctx.send("Checking rank status...")
@@ -366,6 +381,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     frend_role = discord.utils.get(ctx.guild.roles, name="Clan Friend")
     leadr_role = discord.utils.get(ctx.guild.roles, name="Leader")
     concl_role = discord.utils.get(ctx.guild.roles, name="Council")
+    unverified = discord.utils.get(ctx.guild.roles, name="unverified")
 
     if memb_role in user.roles:
         await ctx.send("<@!" + str(user.id) + "> is already ranked in clan. Use !rankup to change.")
@@ -535,11 +551,16 @@ async def giverank(ctx, user: discord.Member, rsn):
 
 
     await user.add_roles(memb_role)
+    await user.remove_roles(unverified)
     await user.edit(nick=rsn)
     await ctx.send("You must also manually assign this rank ingame, <@!" + str(ctx.author.id) + ">")
 
     print(datetime.now())
     print(str(str(ctx.author) + " gave rank to " + str(user) + " with RSN " + rsn))
+
+    await ctx.send("This channel will self-destruct in 24 hours")
+    await asyncio.sleep(86400)
+    await ctx.channel.delete()
 
 @giverank.error
 async def giverank_error(ctx, error):
@@ -1530,12 +1551,15 @@ async def unregister_error(ctx, error):
 
 @client.listen()
 async def on_member_join(member):
-    welcome_chan = client.get_channel(int(os.getenv('welcome_chan')))
+    welcome_chan = client.get_channel(int(os.getenv('welcome_channel')))
+    #welcome_file = open("welcome.msg", "r")
+    #await welcome_chan.send("Hey <@!" + str(member.id) + ">, welcome to **" + member.guild.name + "**!\n\n" + str(welcome_file.read()))
+    #print(member.name, "joined the server")
+    #welcome_file.close()
 
-    welcome_file = open("welcome.msg", "r")
-    await welcome_chan.send("Hey <@!" + str(member.id) + ">, welcome to **" + member.guild.name + "**!\n\n" + str(welcome_file.read()))
-    print(member.name, "joined the server")
-    welcome_file.close()
+    unverified = discord.utils.get(member.guild.roles, name="unverified")
+    await member.add_roles(unverified)
+    await welcome_chan.send("Hey <@!" + str(member.id) + ">, welcome to **" + member.guild.name + "**!\n" + "To gain full discord access open an application in <#874291551688335430>")
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
