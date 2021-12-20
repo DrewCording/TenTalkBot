@@ -23,8 +23,14 @@ async def on_message(message):
             flag=0
             user_ptrn = "@(.*?)@"
             chan_ptrn = "#(.*?)#"
+            levl_ptrn = "] : (.*?) has reached a"
+            drop_ptrn = "] : (.*?) received a drop"
+            qwst_ptrn = "] : (.*?) has completed a quest"
             user_ment = re.search(user_ptrn, content)
             chan_ment = re.search(chan_ptrn, content)
+            levl_ment = re.search(levl_ptrn, content)
+            drop_ment = re.search(drop_ptrn, content)
+            qwst_ment = re.search(qwst_ptrn, content)
 
             if user_ment:
                 user_name = user_ment.group(1)
@@ -70,6 +76,16 @@ async def on_message(message):
             if flag:
                 await message.channel.send(content)
                 await message.delete()
+            else:
+                if levl_ment:
+                    levl_name = levl_ment.group(1)
+                    await message.channel.send("*Gz @" + levl_name + " on the level")
+                elif drop_ment:
+                    drop_name = drop_ment.group(1)
+                    await message.channel.send("*Gz @" + drop_name + " on the drop")
+                elif qwst_ment:
+                    qwst_name = qwst_ment.group(1)
+                    await message.channel.send("*Gz @" + qwst_name + " on the quest")
     else:
         return
 client.run(os.getenv('TOKEN'))
