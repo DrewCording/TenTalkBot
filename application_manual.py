@@ -49,14 +49,14 @@ async def application(ctx, user: discord.Member):
 
 
 
-#@application.error
-#async def verify_error(ctx, error):
-#    if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
-#        await ctx.send("Must provide @user to open application for")
-#    if isinstance(error, discord.ext.commands.errors.MissingPermissions):
-#        await ctx.send("Must be able to manage roles to run this command. This has been reported")
-#        print(datetime.now())
-#        print(ctx.author, "attempted to use !application without permission")
+@application.error
+async def verify_error(ctx, error):
+    if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
+        await ctx.send("Must provide @user to open application for")
+    if isinstance(error, discord.ext.commands.errors.MissingPermissions):
+        await ctx.send("Must be able to manage roles to run this command. This has been reported")
+        print(datetime.now())
+        print(ctx.author, "attempted to use !application without permission")
 
 client.run(os.getenv('TOKEN'))
 
