@@ -26,7 +26,7 @@ async def on_message(message):
                 return
             
             rsn_ptrn = "] (.*?): "
-            login_ptrn = "] (.*?) has joined"
+            login_ptrn = "> (.*?) has joined"
             logot_ptrn = "] (.*?) has left"
             emt_ptrn = "<:(.*?)>"
     

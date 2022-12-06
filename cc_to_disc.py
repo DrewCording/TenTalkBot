@@ -45,6 +45,9 @@ async def cc_to_disc():
 				last_line = last_line.replace("<img=2>", os.getenv('ironman'))
 				last_line = last_line.replace("<img=3>", os.getenv('uim'))
 				last_line = last_line.replace("<img=10>", os.getenv('hcim'))
+				last_line = last_line.replace("<img=41>", os.getenv('gim'))
+				last_line = last_line.replace("<img=22>", "")
+
 
 				if last_line != oldline:
 						await channel.send(last_line)

@@ -74,14 +74,18 @@ async def on_message(message):
             flag=0
             user_ptrn = "@(.*?)@"
             chan_ptrn = "#(.*?)#"
-            levl_ptrn = "] : (.*?) has reached a"
+            levl_ptrn = "] : (.*?) has reached"
             drop_ptrn = "] : (.*?) received a drop"
             qwst_ptrn = "] : (.*?) has completed a quest"
+            pets_ptrn = "] : (.*?) has a funny feeling like"
+            pkrs_ptrn = "] : (.*?) has been defeated by"
             user_ment = re.search(user_ptrn, content)
             chan_ment = re.search(chan_ptrn, content)
             levl_ment = re.search(levl_ptrn, content)
             drop_ment = re.search(drop_ptrn, content)
             qwst_ment = re.search(qwst_ptrn, content)
+            pets_ment = re.search(pets_ptrn, content)
+            pkrs_ment = re.search(pkrs_ptrn, content)
 
             if user_ment:
                 user_name = user_ment.group(1)
@@ -137,6 +141,13 @@ async def on_message(message):
                 elif qwst_ment:
                     qwst_name = qwst_ment.group(1)
                     await message.channel.send("*Gz @" + qwst_name + " on the quest")
+                elif pets_ment:
+                    pets_name = pets_ment.group(1)
+                    await message.channel.send("*Gz @" + pets_name + " on the pet")
+                elif pkrs_ment:
+                    pkrs_name = pkrs_ment.group(1)
+                    await message.channel.send("lmao sit @" + pkrs_name)
+
 
     else:
         return
@@ -150,8 +161,8 @@ async def on_message(message):
                 return
 
             rsn_ptrn = "] (.*?): "
-            login_ptrn = "] (.*?) has joined"
-            logot_ptrn = "] (.*?) has left"
+            login_ptrn = "0>(.*?) has joined"
+            logot_ptrn = "0>(.*?) has left"
             emt_ptrn = "<:(.*?)>"
 
             rsn = re.search(rsn_ptrn, content)
@@ -241,9 +252,12 @@ async def on_message(message):
             if message.author == client.user:
                 if message.channel.id == int(os.getenv('botchan')):
                     cc_chan = client.get_channel(int(os.getenv('channel')))
-                    await cc_chan.send('*Head to www tentalkosrs com for a Discord invite')
+                    #await cc_chan.send('*Head to www tentalkosrs com for a Discord invite')
+                    await cc_chan.send('*Head to tentalk.ca for a Discord invite')
             else:
-                await message.channel.send('Head to https://www.tentalkosrs.com for a Discord invite')
+                #await message.channel.send('Head to https://www.tentalkosrs.com for a Discord invite')
+                await message.channel.send('Head to tentalk.ca for a Discord invite')
+
     else:
         return
 
@@ -509,7 +523,7 @@ async def giverank(ctx, user: discord.Member, rsn):
     new_smry.append("='Member Stats'!J" + str(i))
     new_smry.append(str("=COUNTIF('Member Stats'!G" + str(i) + ":M" + str(i) + ",\">10\")"))
     new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"IM\")),\"Normal\")"))
-    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",(IF(G" + str(i) + "=\"Normal\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))),(IF(F" +str(i) + "<4,(IF(C" + str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1350,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=650,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) +">=2000,\"Rune\",(IF(C" + str(i) + ">=1800,\"Adamant\",(IF(C" + str(i) + ">=1500,\"Mithril\",(IF(C" + str(i) + ">=1100,\"Steel\",(IF(C" + str(i) + ">=700,\"Iron\",\"Bronze\")))))))))))))),(IF(OR(G" + str(i) + "=\"IM\",G" + str(i) + "=\"Dead HCIM\",G" + str(i) + "=\"HCIM\"),(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1300,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<4,(IF(C" +str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1500,\"Adamant\",(IF(C" + str(i) + ">=1250,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=550,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) +">=1700,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))))))),(IF(G" + str(i) +"=\"UIM\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1200,\"Adamant\",(IF(C" + str(i) + ">=1000,\"Mithril\",(IF(C" + str(i) + ">=700,\"Steel\",(IF(C" + str(i) + ">=400,\"Iron\",\"Bronze\")))))))))),(IF(F"+str(i) + "<4,(IF(C" + str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1150,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=450,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))))))),\"ERROR\")))))))"))
+    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",(IF(G" + str(i) + "=\"Normal\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1533,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=966,\"Steel\",(IF(C" + str(i) + ">=633,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1666,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1033,\"Steel\",(IF(C" + str(i) + ">=666,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1800,\"Adamant\",(IF(C" + str(i) + ">=1500,\"Mithril\",(IF(C" + str(i) + ">=1100,\"Steel\",(IF(C" + str(i) + ">=700,\"Iron\",\"Bronze\")))))))))))))))),(IF(OR(G" + str(i) + "=\"IM\",G" + str(i) + "=\"Dead HCIM\",G" + str(i) + "=\"HCIM\"),(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1300,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1433,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=866,\"Steel\",(IF(C" + str(i) + ">=533,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1566,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=933,\"Steel\",(IF(C" + str(i) + ">=566,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1700,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))))))))),(IF(G" + str(i) + "=\"UIM\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1200,\"Adamant\",(IF(C" + str(i) + ">=1000,\"Mithril\",(IF(C" + str(i) + ">=700,\"Steel\",(IF(C" + str(i) + ">=400,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1333,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=766,\"Steel\",(IF(C" + str(i) + ">=433,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1466,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=833,\"Steel\",(IF(C" + str(i) + ">=466,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))))))))),\"ERROR\")))))))"))
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))
@@ -1069,7 +1083,7 @@ async def rankup(ctx, user: discord.Member):
     new_smry.append("='Member Stats'!J" + str(i))
     new_smry.append(str("=COUNTIF('Member Stats'!G" + str(i) + ":M" + str(i) + ",\">10\")"))
     new_smry.append(str("=IF(ISNUMBER('Member Stats'!C" + str(i) + "),IF(ISNUMBER('Member Stats'!D" + str(i) + "),\"UIM\",IF(ISNUMBER('Member Stats'!E" + str(i) + "),IF('Member Stats'!C" + str(i) + " > 'Member Stats'!E" + str(i) + ",\"Dead HCIM\",\"HCIM\"),\"IM\")),\"Normal\")"))
-    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",(IF(G" + str(i) + "=\"Normal\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))),(IF(F" +str(i) + "<4,(IF(C" + str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1350,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=650,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) +">=2000,\"Rune\",(IF(C" + str(i) + ">=1800,\"Adamant\",(IF(C" + str(i) + ">=1500,\"Mithril\",(IF(C" + str(i) + ">=1100,\"Steel\",(IF(C" + str(i) + ">=700,\"Iron\",\"Bronze\")))))))))))))),(IF(OR(G" + str(i) + "=\"IM\",G" + str(i) + "=\"Dead HCIM\",G" + str(i) + "=\"HCIM\"),(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1300,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<4,(IF(C" +str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1500,\"Adamant\",(IF(C" + str(i) + ">=1250,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=550,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) +">=1700,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))))))),(IF(G" + str(i) +"=\"UIM\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1200,\"Adamant\",(IF(C" + str(i) + ">=1000,\"Mithril\",(IF(C" + str(i) + ">=700,\"Steel\",(IF(C" + str(i) + ">=400,\"Iron\",\"Bronze\")))))))))),(IF(F"+str(i) + "<4,(IF(C" + str(i) + ">=1750,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1150,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=450,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))))))),\"ERROR\")))))))"))
+    new_smry.append(str("=IF(E" + str(i) + ">10,\"Clan Friend\",(IF(G" + str(i) + "=\"Normal\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1400,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1533,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=966,\"Steel\",(IF(C" + str(i) + ">=633,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1666,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1033,\"Steel\",(IF(C" + str(i) + ">=666,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1800,\"Adamant\",(IF(C" + str(i) + ">=1500,\"Mithril\",(IF(C" + str(i) + ">=1100,\"Steel\",(IF(C" + str(i) + ">=700,\"Iron\",\"Bronze\")))))))))))))))),(IF(OR(G" + str(i) + "=\"IM\",G" + str(i) + "=\"Dead HCIM\",G" + str(i) + "=\"HCIM\"),(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1300,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=800,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1433,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=866,\"Steel\",(IF(C" + str(i) + ">=533,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1566,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=933,\"Steel\",(IF(C" + str(i) + ">=566,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1700,\"Adamant\",(IF(C" + str(i) + ">=1400,\"Mithril\",(IF(C" + str(i) + ">=1000,\"Steel\",(IF(C" + str(i) + ">=600,\"Iron\",\"Bronze\")))))))))))))))),(IF(G" + str(i) + "=\"UIM\",(IF(F" + str(i) + "<1,(IF(C" + str(i) + ">=1500,\"Rune\",(IF(C" + str(i) + ">=1200,\"Adamant\",(IF(C" + str(i) + ">=1000,\"Mithril\",(IF(C" + str(i) + ">=700,\"Steel\",(IF(C" + str(i) + ">=400,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<3,(IF(C" + str(i) + ">=1666,\"Rune\",(IF(C" + str(i) + ">=1333,\"Adamant\",(IF(C" + str(i) + ">=1100,\"Mithril\",(IF(C" + str(i) + ">=766,\"Steel\",(IF(C" + str(i) + ">=433,\"Iron\",\"Bronze\")))))))))),(IF(F" + str(i) + "<5,(IF(C" + str(i) + ">=1833,\"Rune\",(IF(C" + str(i) + ">=1466,\"Adamant\",(IF(C" + str(i) + ">=1200,\"Mithril\",(IF(C" + str(i) + ">=833,\"Steel\",(IF(C" + str(i) + ">=466,\"Iron\",\"Bronze\")))))))))),(IF(C" + str(i) + ">=2000,\"Rune\",(IF(C" + str(i) + ">=1600,\"Adamant\",(IF(C" + str(i) + ">=1300,\"Mithril\",(IF(C" + str(i) + ">=900,\"Steel\",(IF(C" + str(i) + ">=500,\"Iron\",\"Bronze\")))))))))))))))),\"ERROR\")))))))"))
     new_smry.append(str(""))
     new_smry.append(str(""))
     new_smry.append(str("=COUNTIF(Offences!A1:A,B" + str(i) + ")+COUNTIF(Offences!A1:A,A" + str(i) + ")"))

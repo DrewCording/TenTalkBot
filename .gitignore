@@ -143,3 +143,8 @@ info_disc.msg
 welcome.msg
 polls.hist
 *.tmp
+*.index
+*.list
+*.msg
+colour.py
+send.py
