@@ -146,7 +146,7 @@ async def on_message(message):
                     await message.channel.send("*Gz @" + pets_name + " on the pet")
                 elif pkrs_ment:
                     pkrs_name = pkrs_ment.group(1)
-                    await message.channel.send("lmao sit @" + pkrs_name)
+                    await message.channel.send("*lmao sit @" + pkrs_name)
 
 
     else:
