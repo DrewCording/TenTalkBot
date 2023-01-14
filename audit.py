@@ -15,7 +15,7 @@ async def on_ready():
 
 @client.listen()
 async def on_member_remove(member):
-    audit_chan = client.get_channel(int(os.getenv('audit_chan')))
+    audit_chan = client.get_channel(int(os.getenv('ranks_chan')))
     await audit_chan.send("<@!" + str(member.id) + "> (" + member.name + ") has left the server")
 
 @client.listen()
