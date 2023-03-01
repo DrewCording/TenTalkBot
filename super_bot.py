@@ -152,9 +152,13 @@ async def on_message(message):
                     pkrs_name = pkrs_ment.group(1)
                     await message.channel.send("*lmao sit @" + pkrs_name)
                 elif dpst_ment:
+                    dpst_name = dpst_ment.group(1)
+                    await message.channel.send("*Thank you @" + dpst_name + "!")
                     coffer_chan = client.get_channel(int(os.getenv('coffer_chan')))
                     await coffer_chan.send(content)
                 elif wtdr_ment:
+                    wtdr_name = wtdr_ment.group(1)
+                    await message.channel.send("*O.O I'm watching you @" + wtdr_name)
                     coffer_chan = client.get_channel(int(os.getenv('coffer_chan')))
                     await coffer_chan.send(content)
 
