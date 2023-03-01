@@ -79,6 +79,8 @@ async def on_message(message):
             qwst_ptrn = "] : (.*?) has completed a quest"
             pets_ptrn = "] : (.*?) has a funny feeling like"
             pkrs_ptrn = "] : (.*?) has been defeated by"
+            dpst_ptrn = "] : (.*?) has deposited"
+            wtdr_ptrn = "] : (.*?) has withdrawn"
             user_ment = re.search(user_ptrn, content)
             chan_ment = re.search(chan_ptrn, content)
             levl_ment = re.search(levl_ptrn, content)
@@ -86,6 +88,8 @@ async def on_message(message):
             qwst_ment = re.search(qwst_ptrn, content)
             pets_ment = re.search(pets_ptrn, content)
             pkrs_ment = re.search(pkrs_ptrn, content)
+            dpst_ment = re.search(dpst_ptrn, content)
+            wtdr_ment = re.search(wtdr_ptrn, content)
 
             if user_ment:
                 user_name = user_ment.group(1)
@@ -147,7 +151,12 @@ async def on_message(message):
                 elif pkrs_ment:
                     pkrs_name = pkrs_ment.group(1)
                     await message.channel.send("*lmao sit @" + pkrs_name)
-
+                elif dpst_ment:
+                    coffer_chan = client.get_channel(int(os.getenv('coffer_chan')))
+                    await coffer_chan.send(content)
+                elif wtdr_ment:
+                    coffer_chan = client.get_channel(int(os.getenv('coffer_chan')))
+                    await coffer_chan.send(content)
 
     else:
         return
