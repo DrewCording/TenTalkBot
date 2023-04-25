@@ -43,6 +43,10 @@ async def on_raw_reaction_add(payload):
                         app_chan = await message.guild.create_text_channel(str("Application-" + str(index)), category=category)
                         await app_chan.set_permissions(user, read_messages=True, send_messages=True)
 
+                        apps_file = open("open_apps.log", "a")
+                        apps_file.write(str(str(app_chan.id) + "\n"))
+                        apps_file.close()
+
                         app_file = open("application.msg", "r")
                         await app_chan.send("Hey <@!" + str(user.id) + ">, welcome to **" + user.guild.name + "**!\n\n" + str(app_file.read()))
                         app_file.close()

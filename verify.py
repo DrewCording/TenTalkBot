@@ -15,7 +15,7 @@ async def on_ready():
 
 
 @client.command()
-@commands.has_permissions(manage_roles=True)
+#@commands.has_permissions(manage_roles=True)
 async def verify(ctx, user: discord.Member):
     if ctx.channel.category_id == int(os.getenv('app_cat')):
         verified = discord.utils.get(ctx.guild.roles, name="verified")
@@ -25,8 +25,22 @@ async def verify(ctx, user: discord.Member):
             if unverified in user.roles:
                 await user.remove_roles(unverified)
                 await user.add_roles(verified)
-                await ctx.send("<@!" + str(user.id) + "> is now verified. \nThis channel will self-destruct in 24 hours")
-                await asyncio.sleep(86400)
+                await ctx.send("<@!" + str(user.id) + "> is now verified. \nThis channel will self-destruct in 2 minutes")
+
+                apps_file = open("open_apps.log", "r")
+                apps_list = apps_file.readlines()
+                apps_file.close()
+
+                apps_list = list(map(str.strip,apps_list))
+                
+                if str(ctx.channel.id) in apps_list:
+                    apps_list.remove(str(ctx.channel.id))
+                    apps_file = open("open_apps.log", "w")
+                    for items in apps_list:
+                        apps_file.write(str(items + "\n"))
+                    apps_file.close()
+
+                await asyncio.sleep(120)
                 await ctx.channel.delete()
 
         else: 
