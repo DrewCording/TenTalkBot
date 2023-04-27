@@ -15,7 +15,7 @@ async def on_ready():
 
 
 @client.command()
-#@commands.has_permissions(manage_roles=True)
+@commands.has_permissions(manage_nicknames=True)
 async def verify(ctx, user: discord.Member):
     if ctx.channel.category_id == int(os.getenv('app_cat')):
         verified = discord.utils.get(ctx.guild.roles, name="verified")
@@ -54,7 +54,7 @@ async def verify_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
         await ctx.send("Must provide @user to verify")
     if isinstance(error, discord.ext.commands.errors.MissingPermissions):
-        await ctx.send("Must be able to manage roles to run this command. This has been reported")
+        await ctx.send("Must be able to manage users to run this command. This has been reported")
         print(datetime.now())
         print(ctx.author, "attempted to use !verify without permission")
 

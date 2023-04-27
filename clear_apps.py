@@ -28,6 +28,7 @@ async def clear_apps():
         
         if(channel_name):
             await channel_name.delete()
+            print(str("Deleted " + str(channel_name) + " at " + str(datetime.now())))
 
     buffer_file.close()
 
