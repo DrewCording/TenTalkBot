@@ -25,7 +25,7 @@ async def verify(ctx, user: discord.Member):
             if unverified in user.roles:
                 await user.remove_roles(unverified)
                 await user.add_roles(verified)
-                await ctx.send("<@!" + str(user.id) + "> is now verified. \nThis channel will self-destruct in 2 minutes")
+                await ctx.send("<@!" + str(user.id) + "> is now verified. \nThis channel will self-destruct in 30 minutes")
 
                 apps_file = open("open_apps.log", "r")
                 apps_list = apps_file.readlines()
@@ -40,7 +40,7 @@ async def verify(ctx, user: discord.Member):
                         apps_file.write(str(items + "\n"))
                     apps_file.close()
 
-                await asyncio.sleep(120)
+                await asyncio.sleep(1800)
                 await ctx.channel.delete()
 
         else: 
