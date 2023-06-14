@@ -34,8 +34,13 @@ async def clear_apps():
 
     os.rename("old_apps/buffered_apps.log", str("old_apps/buffered_apps_" + str(datetime.now()) + ".log"))
     os.rename("open_apps.log", "old_apps/buffered_apps.log")
-
     os.rename("open_users.log", str("old_apps/buffered_users_" + str(datetime.now()) + ".log"))
+
+    apps_file = open("open_apps.log", "w")
+    apps_file.close()
+
+    users_file = open("open_users.log", "w")
+    users_file.close()
     
     exit()
 
