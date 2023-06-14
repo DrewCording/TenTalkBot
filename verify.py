@@ -40,8 +40,23 @@ async def verify(ctx, user: discord.Member):
                         apps_file.write(str(items + "\n"))
                     apps_file.close()
 
+                users_file = open("open_users.log", "r")
+                users_list = users_file.readlines()
+                users_file.close()
+
+                users_list = list(map(str.strip, users_list))
+                
+                if str(user.id) in users_list:
+                    users_list.remove(str(user.id))
+                    users_file = open("open_users.log", "w")
+                    for items in users_list:
+                        users_file.write(str(items + "\n"))
+                    users_file.close()
+
+                print(str("started timer on " + str(ctx.channel.name)))
                 await asyncio.sleep(1800)
                 await ctx.channel.delete()
+                print(str("ended timer on " + str(ctx.channel.name)))
 
         else: 
             await ctx.send("<@!" + str(user.id) + "> is already verified")

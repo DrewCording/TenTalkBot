@@ -30,6 +30,19 @@ async def on_raw_reaction_add(payload):
 
                 if verified not in user.roles:
                     if unverified in user.roles:
+                        user_file = open("open_users.log", "r")
+                        users = user_file.readlines()
+                        user_file.close()
+                        users = list(map(str.strip, users))
+
+                        if str(user.id) in users:
+                            return
+                        else: 
+                            user_file = open("open_users.log", "a")
+                            user_file.write(str(str(user.id) + "\n"))
+                            user_file.close()
+
+
                         index_file = open("react.index", "r")
                         index = index_file.readlines()
                         index_file.close()
@@ -41,6 +54,9 @@ async def on_raw_reaction_add(payload):
                         index_file.close()
 
                         app_chan = await message.guild.create_text_channel(str("Application-" + str(index)), category=category)
+
+                        await asyncio.sleep(2)
+
                         await app_chan.set_permissions(user, read_messages=True, send_messages=True)
 
                         apps_file = open("open_apps.log", "a")
