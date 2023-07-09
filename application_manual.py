@@ -35,6 +35,9 @@ async def application(ctx, user: discord.Member):
             index_file.close()
 
             app_chan = await message.guild.create_text_channel(str("Application-" + str(index)), category=category)
+
+            await asyncio.sleep(2)
+
             await app_chan.set_permissions(user, read_messages=True, send_messages=True)
 
             app_file = open("application.msg", "r")
